@@ -17,7 +17,10 @@
 
     <!-- Custom styles for this template-->
     <link href="<?= base_url() ?>assets/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="<?= base_url() ?>assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+    <script src="<?= base_url() ?>assets/js/sweetalert2-all.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 </head>
 
 <body id="page-top">
@@ -26,7 +29,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
@@ -63,8 +66,8 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Menu Barang</h6>
-                        <a class="collapse-item" href="buttons.html">Tambah Barang</a>
-                        <a class="collapse-item" href="cards.html">Master Barang</a>
+                        <a class="collapse-item" href="<?= base_url('admin/add_barang') ?>">Tambah Barang</a>
+                        <a class="collapse-item" href="<?= base_url('admin/barang') ?>">Master Barang</a>
                     </div>
                 </div>
             </li>
@@ -110,7 +113,7 @@
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" href="<?= base_url('admin/akun') ?>">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Akun</span></a>
             </li>
