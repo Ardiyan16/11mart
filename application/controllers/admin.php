@@ -80,4 +80,18 @@ class admin extends CI_Controller
         $data['akun'] = $this->m_admin->list_akun();
         $this->load->view('pages/akun', $data);
     }
+
+    public function save_akun()
+    {
+        $this->m_admin->save_akun();
+        $this->session->set_flashdata('insert', true);
+        redirect('admin/akun');
+    }
+
+    public function delete_akun($id)
+    {
+        $this->db->delete('auth', ['id' => $id]);
+        $this->session->set_flashdata('delete', true);
+        redirect('admin/akun');
+    }
 }

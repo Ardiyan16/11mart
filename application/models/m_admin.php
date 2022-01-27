@@ -78,4 +78,14 @@ class m_admin extends CI_Model
     {
         return $this->db->get_where($this->tb_user, ['role' => 'kasir'])->result();
     }
+
+    public function save_akun()
+    {
+        $post = $this->input->post();
+        $this->username = $post['username'];
+        $this->password = $post['password'];
+        $this->role = $post['role'];
+        $this->is_active = $post['is_active'];
+        $this->db->insert($this->tb_user, $this);
+    }
 }

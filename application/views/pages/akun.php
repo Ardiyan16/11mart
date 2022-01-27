@@ -8,7 +8,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <a href="<?= base_url('admin/add_kasir') ?>" class="btn btn-success"><i class="fa fa-plus-circle"></i> Tambah Kasir</a>
+            <a href="#tambah" data-toggle="modal" class="btn btn-success"><i class="fa fa-plus-circle"></i> Tambah Kasir</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -29,8 +29,7 @@
                                 <td><?= $a->username ?></td>
                                 <td><?= $a->password ?></td>
                                 <td>
-                                    <a href="" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a> |
-                                    <a href="" class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</a>
+                                    <a href="<?= base_url('admin/delete_akun/' . $a->id) ?>" onclick="return confirm('apakah anda yakin menghapus akun?')" class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</a>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -40,22 +39,30 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="tambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Akun</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+            <form action="<?= base_url('admin/save_akun') ?>" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Akun</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label>Username</label>
+                    <input type="text" name="username" class="form-control">
+                    <br>
+                    <label>Password</label>
+                    <input type="text" name="password" class="form-control">
+                    <input type="hidden" name="role" value="kasir">
+                    <input type="hidden" name="is_active" value="1">
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -63,8 +70,8 @@
     <?php if ($this->session->flashdata('insert')) : ?>
         Swal.fire({
             icon: 'success',
-            title: 'Produk berhasil ditambahkan!',
-            text: 'produk baru berhasil ditambahkan',
+            title: 'Akun berhasil ditambahkan!',
+            text: 'akun baru berhasil ditambahkan',
             showConfirmButton: true,
             // timer: 1500
         })
@@ -87,8 +94,8 @@
     <?php elseif ($this->session->flashdata('delete')) : ?>
         Swal.fire({
             icon: 'success',
-            title: 'Barang berhasil dihapus!',
-            text: 'data barang berhasil dihapus',
+            title: 'Akun berhasil dihapus!',
+            text: 'data akun berhasil dihapus',
             showConfirmButton: true,
             // timer: 1500
         })
