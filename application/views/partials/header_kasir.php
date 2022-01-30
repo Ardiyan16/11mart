@@ -14,9 +14,16 @@
     <!-- Custom fonts for this template-->
     <link href="<?= base_url() ?>assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
+    <link href="<?= base_url() ?>assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="<?php echo base_url() ?>assets/vendor/select2-develop/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="<?php echo base_url() ?>assets/vendor/sweetalert-master/dist/sweetalert.css" rel="stylesheet" />
+    <link href="<?php echo base_url() ?>assets/vendor/bootstrap-datepicker-master/dist/css/bootstrap-datepicker3.standalone.min.css" rel="stylesheet" />
+    <script src="<?php echo base_url() . "assets/" ?>vendor/jquery/jquery.min.js"></script>
     <!-- Custom styles for this template-->
     <link href="<?= base_url() ?>assets/css/sb-admin-2.min.css" rel="stylesheet">
+    <script src="<?= base_url() ?>assets/js/sweetalert2-all.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 </head>
 
