@@ -8,6 +8,7 @@ class admin extends CI_Controller
     {
         parent::__construct();
         $this->load->model('m_admin');
+        $this->load->model('m_kasir');
         $this->load->library('form_validation');
     }
 
@@ -93,5 +94,72 @@ class admin extends CI_Controller
         $this->db->delete('auth', ['id' => $id]);
         $this->session->set_flashdata('delete', true);
         redirect('admin/akun');
+    }
+
+    public function list_pendapatan()
+    {
+        $data['title'] = 'List Pendapatan';
+        $data['pendapatan'] = $this->m_kasir->list_pendapatan();
+        $data['edit'] = $this->m_kasir->list_pendapatan();
+        $this->load->view('pages/list_pendapatan', $data);
+    }
+
+    public function update_pendapatan()
+    {
+        $this->m_kasir->update_pendapatan();
+        $this->session->set_flashdata('update', true);
+        redirect('admin/list_pendapatan');
+    }
+
+    public function delete_pendapatan($id)
+    {
+        $this->db->delete('pendapatan_harian', ['id' => $id]);
+        $this->session->set_flashdata('delete', true);
+        redirect('admin/list_pendapatan');
+    }
+
+    public function list_penjualan()
+    {
+        $data['title'] = 'List Penjualan';
+        $data['penjualan'] = $this->m_admin->list_penjualan();
+        $data['detail'] = $this->m_admin->list_detailPenjualan();
+        $this->load->view('pages/history_penjualan', $data);
+    }
+
+    public function list_detailPenjualan()
+    {
+        $data['title'] = 'List Detail Penjualan';
+        $data['detail'] = $this->m_admin->list_detailPenjualan();
+        $this->load->view('pages/detail_penjualan', $data);
+    }
+
+    public function detail_barangTerjual($kode)
+    {
+        $data['title'] = 'List Detail Penjualan';
+        $data['detail'] = $this->m_admin->detail_barangTerjual($kode);
+        $this->load->view('pages/detail_barang_terjual', $data);
+    }
+
+    public function laporan_penjualan()
+    {
+        $data['title'] = 'List Penjualan';
+        $data['penjualan'] = $this->m_admin->list_penjualan();
+        $this->load->view('pages/laporan_penjualan', $data);
+    }
+
+    public function filter_laporanPenjualan()
+    {
+        $tgl_awal = $this->input->get('tanggal_awal');
+        $tgl_akhir = $this->input->get('tanggal_akhir');
+        $data['title'] = 'List Penjualan';
+        $data['penjualan'] = $this->m_admin->filter_laporanPenjualan($tgl_awal, $tgl_akhir);
+        $this->load->view('pages/laporan_penjualan', $data);
+    }
+
+    public function cetak_pdf()
+    {
+        $data['title'] = 'Cetak PDF Laporan Penjualan';
+        $data['penjualan'] = $this->m_admin->list_penjualan();
+        $this->load->view('pages/pdf_laporan_penjualan', $data);
     }
 }

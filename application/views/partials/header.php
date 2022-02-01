@@ -38,7 +38,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon">
-                    <i class="fas fa-desktop"></i>
+                    <i class="fas fa-shopping-cart"></i>
                 </div>
                 <div class="sidebar-brand-text mx-3">11 <sup>Mart</sup></div>
             </a>
@@ -108,9 +108,10 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Laporan:</h6>
-                        <a class="collapse-item" href="login.html">Laporan Penjualan</a>
+                        <a class="collapse-item" href="<?= base_url('admin/laporan_penjualan') ?>">Laporan Penjualan</a>
                         <a class="collapse-item" href="register.html">Laba Rugi</a>
                         <a class="collapse-item" href="forgot-password.html">Laba Rugi Harian</a>
+                        <a class="collapse-item" href="<?= base_url('admin/list_pendapatan') ?>">Pendapatan Harian</a>
                     </div>
                 </div>
             </li>
@@ -124,9 +125,17 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTransaksi" aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-history"></i>
-                    <span>History Penjualan</span></a>
+                    <span>History Transaksi</span>
+                </a>
+                <div id="collapseTransaksi" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Menu List Penjualan:</h6>
+                        <a class="collapse-item" href="<?= base_url('admin/list_penjualan') ?>">History penjualan</a>
+                        <a class="collapse-item" href="<?= base_url('admin/list_detailPenjualan') ?>">History Detail Penjualan</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Divider -->

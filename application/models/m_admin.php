@@ -6,6 +6,8 @@ class m_admin extends CI_Model
 
     private $tb_brg = 'barang';
     private $tb_user = 'auth';
+    private $tb_penjualan = 'penjualan';
+    private $tb_detail = 'detail_penjualan';
 
     public function list_brg()
     {
@@ -87,5 +89,36 @@ class m_admin extends CI_Model
         $this->role = $post['role'];
         $this->is_active = $post['is_active'];
         $this->db->insert($this->tb_user, $this);
+    }
+
+    public function list_penjualan()
+    {
+        return $this->db->get($this->tb_penjualan)->result();
+    }
+
+    public function list_detailPenjualan()
+    {
+        $this->db->select('*');
+        $this->db->from('detail_penjualan');
+        $this->db->join('barang', 'barang.kode_brg = detail_penjualan.kode_brg');
+        return $this->db->get()->result();
+    }
+
+    public function detail_barangTerjual($kode)
+    {
+        $this->db->select('*');
+        $this->db->from('detail_penjualan');
+        $this->db->join('barang', 'barang.kode_brg = detail_penjualan.kode_brg');
+        $this->db->where('kode_pj', $kode);
+        return $this->db->get()->result();
+    }
+
+    public function filter_laporanPenjualan($tgl_awal, $tgl_akhir)
+    {
+        $this->db->select('*');
+        $this->db->from('penjualan');
+        $this->db->where('tgl_pj >=', $tgl_awal);
+        $this->db->where('tgl_pj <=', $tgl_akhir);
+        return $this->db->get()->result();
     }
 }

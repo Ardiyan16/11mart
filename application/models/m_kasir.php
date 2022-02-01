@@ -3,12 +3,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class m_kasir extends CI_Model
 {
+    private $tb_pendapatan = 'pendapatan_harian';
+
     function max_nota()
     {
         return $this->db->query('SELECT kode_pj AS maxs FROM penjualan order by kode_pj desc limit 1 ');
     }
 
-    var $barang = 'barang';
+    // var $barang = 'barang';
     var $column_orderid = array('a.kode_brg', 'a.nama_brg', 'a.harga_satuan', 'a.harga_grosir', 'a.stok', null); //set column field database for datatable orderable
     var $column_searchid = array('a.kode_brg', 'a.nama_brg', 'a.harga_satuan', 'a.harga_grosir', 'a.stok'); //set column field database for datatable searchable just title , author , category are searchable
     var $orderid = array('a.id_brg' => 'asc'); // default order
@@ -73,7 +75,7 @@ class m_kasir extends CI_Model
 
     function count_allid()
     {
-        $this->db->from($this->barang);
+        $this->db->from('barang');
         return $this->db->count_all_results();
     }
 
@@ -92,5 +94,52 @@ class m_kasir extends CI_Model
 		}
 
 		echo json_encode($json);
+    }
+
+    public function list_pendapatan()
+    {
+        return $this->db->get($this->tb_pendapatan)->result();
+    }
+
+    public function save_pendapatan()
+    {
+        $post = $this->input->post();
+        $this->hari = $post['hari'];
+        $this->tanggal = $post['tanggal'];
+        $this->pendapatan = $post['pendapatan'];
+        $this->keterangan = $post['keterangan'];
+        $this->db->insert($this->tb_pendapatan, $this);
+    }
+
+    public function update_pendapatan()
+    {
+        $post = $this->input->post();
+        $this->id = $post['id'];
+        $this->hari = $post['hari'];
+        $this->tanggal = $post['tanggal'];
+        $this->pendapatan = $post['pendapatan'];
+        $this->keterangan = $post['keterangan'];
+        $this->db->update($this->tb_pendapatan, $this, ['id' => $post['id']]);
+    }
+
+    function getLastId()
+    {
+        $sql = $this->db->select('kode_pj');
+        $sql = $this->db->from('penjualan');
+        $sql = $this->db->order_by('kode_pj', 'desc');
+        $sql = $this->db->limit(1);
+        $sql = $this->db->get();
+
+        return $sql->result_array();
+    }
+
+    public function nota($kode)
+    {
+        $this->db->select('*');
+        $this->db->from('detail_penjualan');
+        $this->db->join('penjualan', 'penjualan.kode_pj = detail_penjualan.kode_pj', 'left_outer');
+        $this->db->join('barang', 'barang.kode_brg = detail_penjualan.kode_brg', 'left_outer');
+        $this->db->where('detail_penjualan.kode_pj', $kode);
+        return $this->db->get()->result();
     }
 }

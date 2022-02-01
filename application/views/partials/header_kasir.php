@@ -22,6 +22,7 @@
     <!-- Custom styles for this template-->
     <link href="<?= base_url() ?>assets/css/sb-admin-2.min.css" rel="stylesheet">
     <script src="<?= base_url() ?>assets/js/sweetalert2-all.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/sprintf.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
@@ -38,7 +39,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon">
-                    <i class="fas fa-desktop"></i>
+                    <i class="fas fa-shopping-cart"></i>
                 </div>
                 <div class="sidebar-brand-text mx-3">11 <sup>Mart</sup></div>
             </a>
@@ -48,11 +49,22 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Kasir</span></a>
+                <a class="nav-link" href="<?= base_url('kasir') ?>">
+                    <i class="fas fa-fw fa-shopping-cart"></i>
+                    <span>Penjualan Satuan</span></a>
             </li>
 
+            <li class="nav-item active">
+                <a class="nav-link" href="<?= base_url('kasir/penjualan_grosir') ?>">
+                    <i class="fas fa-fw fa-shopping-cart"></i>
+                    <span>Penjualan Grosir</span></a>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link" href="<?= base_url('kasir/pendapatan_masuk') ?>">
+                    <i class="fas fa-fw fa-wallet"></i>
+                    <span>Pendapatan Masuk</span></a>
+            </li>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
