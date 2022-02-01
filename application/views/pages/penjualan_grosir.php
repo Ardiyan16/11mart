@@ -104,7 +104,7 @@
             </div>
             <div class="row">
                 <div class="col-auto">
-                    <button type="button" style="margin-top: 25px;" class="btn-sm btn-primary" id="BarisBaru">
+                    <button type="button" style="margin-top: 25px;" class="btn btn-primary" id="BarisBaru">
                         <i class="fa fa-plus"> Baris Baru</i>
                     </button>
                     <!-- <a href="<?= base_url() . "transaksi/addDetailPenjualan" ?>" class="btn btn-default addDetail"><span class="fa fa-plus"></span> Tambah Item</a> -->
@@ -206,7 +206,7 @@
                     max = json.maxs;
                 }
 
-                var ambil_tanggal = d;
+                var ambil_tanggal = max.substring(8, 10);
                 console.log('max', max);
                 console.log('ambil_tanggal', ambil_tanggal);
 
@@ -712,7 +712,7 @@
             // console.log(potongan);
             // console.log('Total', Total);
 
-            kembalian = parseInt(kembalian) + parseInt(bayar) - parseInt(Total) + parseInt(TotalPotongan);
+            kembalian = parseInt(kembalian) + parseInt(bayar) - parseInt(Total);
 
             console.log('kembalian', kembalian)
             $('#kembalian').val(to_rupiah(kembalian));
@@ -744,7 +744,7 @@
         // console.log('Total', Total);
         // console.log('Kembalian', kembalian);
         $('#totalPotongan').val(to_rupiah(TotalPotongan));
-        $('#totalbelanja').val(to_rupiah(Total));
+        $('#totalbelanja').val(Total);
         $('#totalbelanja2').html(to_rupiah(Total));
 
         // $('#TotalOngkir').val(TotalOngkos);

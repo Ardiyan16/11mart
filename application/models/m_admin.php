@@ -8,6 +8,8 @@ class m_admin extends CI_Model
     private $tb_user = 'auth';
     private $tb_penjualan = 'penjualan';
     private $tb_detail = 'detail_penjualan';
+    private $tb_keuangan = 'beban_keuangan';
+    private $tb_pembukuan = 'pembukuan';
 
     public function list_brg()
     {
@@ -76,7 +78,7 @@ class m_admin extends CI_Model
         }
     }
 
-    public function list_akun() 
+    public function list_akun()
     {
         return $this->db->get_where($this->tb_user, ['role' => 'kasir'])->result();
     }
@@ -121,4 +123,43 @@ class m_admin extends CI_Model
         $this->db->where('tgl_pj <=', $tgl_akhir);
         return $this->db->get()->result();
     }
+
+    function get_kodeKeuangan()
+    {
+        $this->db->select('RIGHT(beban_keuangan.kode_keuangan,4) as kode', FALSE);
+        $this->db->order_by('kode_keuangan', 'DESC');
+        $this->db->limit(1);
+        $query = $this->db->get('beban_keuangan');
+        if ($query->num_rows() <> 0) {
+
+            $data = $query->row();
+            $kode = intval($data->kode) + 1;
+        } else {
+            //jika kode belum ada      
+            $kode = 1;
+        }
+        $kodemax = str_pad($kode, 4, "0", STR_PAD_LEFT);
+        $kodejadi = "KK" . $kodemax;
+        return $kodejadi;
+    }
+
+    public function list_keuangan()
+    {
+        $this->db->select('*');
+        $this->db->from('beban_keuangan');
+        $this->db->join('kebutuhan', 'kebutuhan.id = beban_keuangan.id_kebutuhan');
+        return $this->db->get()->result();
+    }
+
+    public function save_keuangan()
+    {
+        $post = $this->input->post();
+        $this->kode_keuangan = $post['kode_keuangan'];
+        $this->tgl_input = $post['tgl_input'];
+        $this->nominal_keuangan = $post['nominal_keuangan'];
+        $this->id_kebutuhan = $post['id_kebutuhan'];
+        $this->keterangan = $post['keterangan'];
+        $this->db->insert($this->tb_keuangan, $this);
+    }
+
 }

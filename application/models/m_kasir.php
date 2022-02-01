@@ -4,6 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class m_kasir extends CI_Model
 {
     private $tb_pendapatan = 'pendapatan_harian';
+    private $tb_pembukuan = 'pembukuan';
 
     function max_nota()
     {
@@ -81,19 +82,19 @@ class m_kasir extends CI_Model
 
     public function ambilBarang()
     {
-		$barang = $this->db->get('barang');
+        $barang = $this->db->get('barang');
 
-		if ($barang->num_rows() > 0) {
-			$json['status'] 	= 1;
-			foreach ($barang->result() as $b) {
-				$json['datanya'][] = $b;
-			}
-			$json['jumlah_barang'] = count($barang->result());
-		} else {
-			$json['status'] 	= 0;
-		}
+        if ($barang->num_rows() > 0) {
+            $json['status']     = 1;
+            foreach ($barang->result() as $b) {
+                $json['datanya'][] = $b;
+            }
+            $json['jumlah_barang'] = count($barang->result());
+        } else {
+            $json['status']     = 0;
+        }
 
-		echo json_encode($json);
+        echo json_encode($json);
     }
 
     public function list_pendapatan()
@@ -141,5 +142,15 @@ class m_kasir extends CI_Model
         $this->db->join('barang', 'barang.kode_brg = detail_penjualan.kode_brg', 'left_outer');
         $this->db->where('detail_penjualan.kode_pj', $kode);
         return $this->db->get()->result();
+    }
+
+    public function save_pembukuanKeuangan()
+    {
+        $post = $this->input->post();
+        $this->kode_transaksi = $post['kode_keuangan'];
+        $this->kategori = 'beban keuangan';
+        $this->tanggal = $post['tgl_input'];
+        $this->nominal = $post['nominal_keuangan'];
+        $this->db->insert($this->tb_pembukuan, $this);
     }
 }

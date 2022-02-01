@@ -85,8 +85,8 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Menu Keuangan:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Kas</a>
-                        <a class="collapse-item" href="utilities-border.html">Beban</a>
+                        <a class="collapse-item" href="<?= base_url('admin/keuangan') ?>">Beban Keuangan</a>
+                        <a class="collapse-item" href="<?= base_url('admin/kebutuhan') ?>">Kebutuhan</a>
                     </div>
                 </div>
             </li>
@@ -112,6 +112,7 @@
                         <a class="collapse-item" href="register.html">Laba Rugi</a>
                         <a class="collapse-item" href="forgot-password.html">Laba Rugi Harian</a>
                         <a class="collapse-item" href="<?= base_url('admin/list_pendapatan') ?>">Pendapatan Harian</a>
+                        <a class="collapse-item" href="<?= base_url('admin/pembukuan') ?>">Pembukuan</a>
                     </div>
                 </div>
             </li>

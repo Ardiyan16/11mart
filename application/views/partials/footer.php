@@ -2,7 +2,7 @@
 <footer class="sticky-footer bg-white">
     <div class="container my-auto">
         <div class="copyright text-center my-auto">
-            <span>Copyright &copy; 11 Mart Website by Ardiyan Ramadhan</span>
+            <span>Copyright &copy; 11 Mart Website by ardiyan.site</span>
         </div>
     </div>
 </footer>

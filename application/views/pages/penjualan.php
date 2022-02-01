@@ -209,7 +209,7 @@
                     max = json.maxs;
                 }
 
-                var ambil_tanggal = d;
+                var ambil_tanggal = max.substring(8, 10);
                 console.log('max', max);
                 console.log('ambil_tanggal', ambil_tanggal);
 

@@ -162,4 +162,72 @@ class admin extends CI_Controller
         $data['penjualan'] = $this->m_admin->list_penjualan();
         $this->load->view('pages/pdf_laporan_penjualan', $data);
     }
+
+    public function pembukuan()
+    {
+        $data['title'] = 'Pembukuan';
+        $data['pembukuan'] = $this->db->get('pembukuan')->result();
+        $this->load->view('pages/pembukuan', $data);
+    }
+
+    public function kebutuhan()
+    {
+        $data['title'] = 'Kebutuhan';
+        $data['kebutuhan'] = $this->db->get('kebutuhan')->result();
+        $data['edit'] = $this->db->get('kebutuhan')->result();
+        $this->load->view('pages/kebutuhan', $data);
+    }
+
+    public function save_kebutuhan()
+    {
+        $data = [
+            'kebutuhan' => $this->input->post('kebutuhan')
+        ];
+        $this->db->insert('kebutuhan', $data);
+        $this->session->set_flashdata('insert', true);
+        redirect('admin/kebutuhan');
+    }
+
+    public function update_kebutuhan()
+    {
+        $id = $this->input->post('id');
+        $kebutuhan = $this->input->post('kebutuhan');
+        $this->db->set('kebutuhan', $kebutuhan);
+        $this->db->where('id', $id);
+        $this->db->update('kebutuhan');
+        $this->session->set_flashdata('update', true);
+        redirect('admin/kebutuhan');
+    }
+
+    public function delete_kebutuhan($id)
+    {
+        $this->db->delete('kebutuhan', ['id' => $id]);
+        $this->session->set_flashdata('delete', true);
+        redirect('admin/kebutuhan');
+    }
+
+    public function keuangan()
+    {
+        $data['title'] = 'Kebutuhan Keuangan';
+        $data['keuangan'] = $this->m_admin->list_keuangan();
+        $data['kode'] = $this->m_admin->get_kodeKeuangan();
+        $data['kebutuhan'] = $this->db->get('kebutuhan')->result();
+        $this->load->view('pages/beban_keuangan', $data);
+    }
+
+    public function save_keuangan()
+    {
+        $this->m_admin->save_keuangan();
+        $this->m_kasir->save_pembukuanKeuangan();
+        $this->session->set_flashdata('insert', true);
+        redirect('admin/keuangan');
+    }
+
+    public function delete_keuangan($kode)
+    {
+        $this->db->delete('beban_keuangan', ['kode_keuangan' => $kode]);
+        $this->session->set_flashdata('delete', true);
+        redirect('admin/keuangan');
+    }
+
 }
