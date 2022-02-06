@@ -35,7 +35,7 @@
                                 <td><?= $k->kebutuhan ?></td>
                                 <td><?= $k->keterangan ?></td>
                                 <td>
-                                    <a href="#edit<?= $k->id ?>" data-toggle="modal" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>
+                                    <a href="#edit<?= $k->kode_keuangan ?>" data-toggle="modal" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>
                                     <a href="<?= base_url('admin/delete_keuangan/' . $k->kode_keuangan) ?>" onclick="return confirm('apakah anda yakin menghapus keuangan ini ?')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus</a>
                                 </td>
                             </tr>
@@ -70,7 +70,7 @@
                     <label>Kebutuhan</label>
                     <select name="id_kebutuhan" class="form-control">
                         <option>--Pilih Kebutuhan--</option>
-                        <?php foreach($kebutuhan as $k) { ?>
+                        <?php foreach ($kebutuhan as $k) { ?>
                             <option value="<?= $k->id ?>"><?= $k->kebutuhan ?></option>
                         <?php } ?>
                     </select>
@@ -87,67 +87,49 @@
     </div>
 </div>
 
-<!-- <?php foreach ($edit as $e) { ?>
-    <div class="modal fade" id="edit<?= $e->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+<?php foreach ($edit as $e) { ?>
+    <div class="modal fade" id="edit<?= $e->kode_keuangan ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <form action="<?= base_url('admin/update_pendapatan') ?>" method="post">
+                <form action="<?= base_url('admin/update_keuangan') ?>" method="post">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Edit Pendapatan</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Keuangan</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <label>Hari</label>
-                        <select name="hari" class="form-control">
-                            <option>--Pilih Hari--</option>
-                            <option <?php if ($e->hari == 'senin') {
-                                        echo 'selected="selected"';
-                                    } ?>value="senin">Senin</option>
-                            <option <?php if ($e->hari == 'selasa') {
-                                        echo 'selected="selected"';
-                                    } ?> value="selasa">Selasa</option>
-                            <option <?php if ($e->hari == 'rabu') {
-                                        echo 'selected="selected"';
-                                    } ?> value="rabu">Rabu</option>
-                            <option <?php if ($e->hari == 'kamis') {
-                                        echo 'selected="selected"';
-                                    } ?> value="kamis">Kamis</option>
-                            <option <?php if ($e->hari == 'jumat') {
-                                        echo 'selected="selected"';
-                                    } ?> value="jumat">Jumat</option>
-                            <option <?php if ($e->hari == 'sabtu') {
-                                        echo 'selected="selected"';
-                                    } ?> value="sabtu">Sabtu</option>
-                            <option <?php if ($e->hari == 'minggu') {
-                                        echo 'selected="selected"';
-                                    } ?> value="minggu">Minggu</option>
+                        <label>Kode Keuangan</label>
+                        <input type="text" name="kode_keuangan" value="<?= $e->kode_keuangan ?>" readonly class="form-control">
+                        <br>
+                        <label>Tanggal Input</label>
+                        <input type="date" value="<?= $e->tgl_input ?>" name="tgl_input" class="form-control">
+                        <br>
+                        <label>Nominal Keuangan</label>
+                        <input type="text" value="<?= $e->nominal_keuangan ?>" name="nominal_keuangan" class="form-control">
+                        <br>
+                        <label>Kebutuhan</label>
+                        <select name="id_kebutuhan" class="form-control">
+                            <option>--Pilih Kebutuhan--</option>
+                            <?php foreach ($kebutuhan as $k) { ?>
+                                <option <?php if ($e->id_kebutuhan == $k->id) {
+                                            echo 'selected="selected"';
+                                        } ?> value="<?= $k->id ?>"><?= $k->kebutuhan ?></option>
+                            <?php } ?>
                         </select>
                         <br>
-                        <?php
-                        $tgl = date('d-m-Y');
-                        ?>
-                        <label>Tanggal</label>
-                        <input type="hidden" value="<?= $e->id ?>" name="id">
-                        <input name="tanggal" type="text" value="<?= $e->tanggal ?>" placeholder="" class="form-control" required>
-                        <br>
-                        <label>Pendapatan Hari Ini</label>
-                        <input name="pendapatan" type="number" placeholder="Pendapatan" value="<?= $e->pendapatan ?>" class="form-control" required>
-                        <br>
                         <label>Keterangan</label>
-                        <input name="keterangan" type="text" value="<?= $e->keterangan ?>" placeholder="Keterangan" class="form-control" required>
-                        <br>
+                        <input type="text" name="keterangan" value="<?= $e->keterangan ?>" class="form-control">
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Simpan Edit</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Simpan Edit</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-<?php } ?> -->
+<?php } ?>
 <script>
     <?php if ($this->session->flashdata('update')) : ?>
         Swal.fire({
@@ -157,7 +139,7 @@
             showConfirmButton: true,
             // timer: 1500
         })
-        <?php elseif ($this->session->flashdata('insert')) : ?>
+    <?php elseif ($this->session->flashdata('insert')) : ?>
         Swal.fire({
             icon: 'success',
             title: 'Keuangan berhasil tambahkan!',

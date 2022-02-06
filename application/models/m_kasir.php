@@ -153,4 +153,14 @@ class m_kasir extends CI_Model
         $this->nominal = $post['nominal_keuangan'];
         $this->db->insert($this->tb_pembukuan, $this);
     }
+
+    public function update_pembukuanKeuangan()
+    {
+        $post = $this->input->post();
+        $this->kode_transaksi = $post['kode_keuangan'];
+        $this->kategori = 'beban keuangan';
+        $this->tanggal = $post['tgl_input'];
+        $this->nominal = $post['nominal_keuangan'];
+        $this->db->update($this->tb_pembukuan, $this, ['kode_transaksi' => $post['kode_keuangan']]);
+    }
 }

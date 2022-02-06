@@ -140,6 +140,64 @@ class kasir extends CI_Controller
 		redirect('kasir/nota_penjualan/' . $kode_pj);
 	}
 
+    public function proses_penjualanSatuan()
+	{
+		// $total = 0;
+		// foreach ($_POST['subtotal'] as $value) {
+		// 	$total += $value;
+		// }
+		$total_qty = 0;
+		foreach ($_POST['qty'] as $value) {
+			$total_qty += $value;
+		}
+		$total_byr = $this->input->post('total_byr');
+        $total_pj = $this->input->post('total_pj');
+		$kasir = $this->input->post('kasir');
+		$total_potongan = $this->input->post('total_potongan');
+		$kembalian = $this->input->post('kembalian');
+        $tgl_pj = $this->input->post('tgl_pj');
+		$kode_pj = $this->input->post('kode_pj');
+		$penjualan = array(
+			'kode_pj' => $kode_pj,
+			'tgl_pj' => $tgl_pj,
+			'kasir' => $kasir,
+			'total_qty' => $total_qty,
+			'total_pj' => $total_pj,
+			'total_byr' => $total_byr,
+			'total_potongan' => $total_potongan,
+			'kembalian' => $kembalian,
+			'ket' => 'transaksi grosir',
+		);
+		$pembukuan = array(
+			'kode_transaksi' => $kode_pj,
+			'kategori' => 'penjualan',
+			'tanggal' => $tgl_pj,
+			'nominal' =>  $total_pj,
+		);
+		$this->db->insert('penjualan', $penjualan);
+		$this->db->insert('pembukuan', $pembukuan);
+		$lasId = $this->m_kasir->getLastId();
+		foreach ($_POST['kode_brg'] as $key => $value) {
+			$data = [
+				'kode_pj' => $lasId[0]['kode_pj'],
+				'kode_brg' => $this->input->post('kode_brg')[$key],
+				'qty' => $this->input->post('qty')[$key],
+				'harga' => $this->input->post('harga_satuan')[$key],
+				'subtotal' => $this->input->post('subtotal')[$key],
+				'potongan' => $this->input->post('potongan')[$key],
+			];
+			$this->db->insert('detail_penjualan', $data);
+		}
+		foreach ($_POST['kode_brg'] as $key => $value) {
+
+			$kode_brg = $this->input->post('kode_brg')[$key];
+			$qty = $this->input->post('qty')[$key];
+			$this->db->query("UPDATE `barang` SET `stok`=stok-'$qty' WHERE kode_brg='$kode_brg'");
+		}
+		$this->session->set_flashdata('transaksiberhasil', true);
+		redirect('kasir/nota_penjualan/' . $kode_pj);
+	}
+
     public function nota_penjualan($kode)
     {
         $data['jual'] = $this->db->get_where('penjualan', ['kode_pj' => $kode])->row_array();

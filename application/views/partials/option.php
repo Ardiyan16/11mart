@@ -1,5 +1,5 @@
 <div class="dropdown dropdown-link">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
         Option
     </button>
     <div class="dropdown-menu">

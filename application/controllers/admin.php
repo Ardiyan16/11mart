@@ -15,6 +15,27 @@ class admin extends CI_Controller
     public function index()
     {
         $data['title'] = 'admin-dashboard';
+        $data['notifikasi'] = $this->m_admin->notifikasi_stok();
+        $data['jml_notif'] = $this->m_admin->jml_notif();
+        $data['bulan'] = $this->db->get('bulan')->result();
+        foreach ($this->m_admin->grafik_penjualan()->result_array() as $row) {
+            $data['grafik'][] = (int) $row['Januari'];
+            $data['grafik'][] = (int) $row['Februari'];
+            $data['grafik'][] = (int) $row['Maret'];
+            $data['grafik'][] = (int) $row['April'];
+            $data['grafik'][] = (int) $row['Mei'];
+            $data['grafik'][] = (int) $row['Juni'];
+            $data['grafik'][] = (int) $row['Juli'];
+            $data['grafik'][] = (int) $row['Agustus'];
+            $data['grafik'][] = (int) $row['September'];
+            $data['grafik'][] = (int) $row['Oktober'];
+            $data['grafik'][] = (int) $row['November'];
+            $data['grafik'][] = (int) $row['Desember'];
+        }
+        $data['pendapatan_harian'] = $this->m_admin->pendapatan_perhari();
+        $data['pendapatan_total'] = $this->m_admin->pendapatan_total();
+        $data['total_transaksi'] = $this->m_admin->total_transaksi();
+        $data['transaksi_hariini'] = $this->m_admin->jml_transaksiHariIni();
         $this->load->view('pages/dashboard', $data);
     }
 
@@ -32,7 +53,7 @@ class admin extends CI_Controller
     }
 
     public function save_brg()
-    {   
+    {
         $this->m_admin->save_brg();
         $this->session->set_flashdata('insert', true);
         redirect('admin/barang');
@@ -62,9 +83,9 @@ class admin extends CI_Controller
     public function save_stok()
     {
         $id_brg = $this->input->post('id_brg');
-		$stok = $this->input->post('stok');
-		$this->db->query("UPDATE `barang` SET `stok`=stok+'$stok' WHERE id_brg='$id_brg'");
-		$this->session->set_flashdata('tambah_stok', true);
+        $stok = $this->input->post('stok');
+        $this->db->query("UPDATE `barang` SET `stok`=stok+'$stok' WHERE id_brg='$id_brg'");
+        $this->session->set_flashdata('tambah_stok', true);
         redirect('admin/barang');
     }
 
@@ -211,6 +232,7 @@ class admin extends CI_Controller
         $data['title'] = 'Kebutuhan Keuangan';
         $data['keuangan'] = $this->m_admin->list_keuangan();
         $data['kode'] = $this->m_admin->get_kodeKeuangan();
+        $data['edit'] = $this->m_admin->list_keuangan();
         $data['kebutuhan'] = $this->db->get('kebutuhan')->result();
         $this->load->view('pages/beban_keuangan', $data);
     }
@@ -223,11 +245,36 @@ class admin extends CI_Controller
         redirect('admin/keuangan');
     }
 
+    public function update_keuangan()
+    {
+        $this->m_admin->update_keuangan();
+        $this->m_kasir->update_pembukuanKeuangan();
+        $this->session->set_flashdata('update', true);
+        redirect('admin/keuangan');
+    }
+
     public function delete_keuangan($kode)
     {
         $this->db->delete('beban_keuangan', ['kode_keuangan' => $kode]);
+        $this->db->delete('pembukuan', ['kode_transaksi' => $kode]);
         $this->session->set_flashdata('delete', true);
         redirect('admin/keuangan');
     }
 
+    public function laba_rugi()
+    {
+        $data['title'] = 'Laba Rugi';
+        $this->load->view('pages/laba_rugi', $data);
+    }
+
+    public function getlabarugi()
+    {
+        // POST data
+        $postData = $this->input->post();
+        // Get data
+        $data = $this->m_admin->getLabarugi($postData)[0];
+
+        header('content-type:json/application');
+        echo json_encode($data);
+    }
 }

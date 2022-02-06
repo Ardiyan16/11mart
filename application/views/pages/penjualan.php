@@ -48,7 +48,7 @@
     <h1 class="h3 mb-2 text-gray-800" style="margin-left: 10px;">Transaksi Penjualan</h1>
     <div class="card-body">
         <hr>
-        <form action="<?= base_url('Transaksi/aksipenjualan') ?>" method="POST">
+        <form action="<?= base_url('kasir/proses_penjualanSatuan') ?>" method="POST">
             <div class="row">
                 <div class="col-md-4">
                     <label for="">No Nota</label>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="col-md-4">
                     <?php
-                    $tgl = date('Y-m-d');
+                    $tgl = date('Y/m/d');
                     ?>
                     <label for="">Tanggal</label>
                     <div class="input-group mb-3">
@@ -91,8 +91,7 @@
                                 <th scope="col">Kode Barang</th>
                                 <th scope="col">Nama Barang</th>
                                 <th scope="col">Qty</th>
-                                <th scope="col">Harga</th>
-                                <th scope="col">Harga Grosir</th>
+                                <th scope="col">Harga Satuan</th>
                                 <th scope="col">Potongan</th>
                                 <th scope="col">Sub Total</th>
                                 <th scope="col">Hapus</th>
@@ -204,7 +203,7 @@
                 var y = "<?php echo date('Y') ?>";
 
                 if (json.maxs == null) {
-                    max = 'PJ' + '' + d + '' + m + '' + y + '-' + '0000';
+                    max = 'PJ' + '' + y + '' + m + '' + d + '-' + '0000';
                 } else {
                     max = json.maxs;
                 }
@@ -221,10 +220,10 @@
                 }
 
                 urut++;
-                // console.log('urut', urut);
+                //console.log(urut);
                 var kodene = sprintf("%05s", urut);
 
-                var invoice = 'PJ' + '' + d + '' + m + '' + y + '-' + kodene;
+                var invoice = 'PJ' + '' + y + '' + m + '' + d + '-' + kodene;
                 console.log('invoice' + invoice);
                 $('#no_nota').val(invoice);
             }
@@ -304,13 +303,11 @@
         //5
         baris += "<td><input type='number' name='harga_satuan[]' id='harga_satuan' class='form-control harga_satuan" + nomor + "'></td>";
 
-        //6
-        baris += "<td><input type='number' name='harga_grosir[]' id='harga_grosir' class='form-control harga_grosir" + nomor + "'></td>";
 
-        //7
+        //6
         baris += "<td><input type='text' name='potongan[]' id='potongan' class='form-control potongan" + nomor + "'></td>";
 
-        //8
+        //7
         baris += "<td>";
         baris += "<input required type='hidden' name='subtotal[]' id='subtotal' class='subtotal" + nomor + "'>";
         baris += '<span></span>';
@@ -628,10 +625,9 @@
         var Indexnya = $(this).parent().parent().index();
         var Qty = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(4) input#qty').val();
         var Harga_Satuan = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(5) input#harga_satuan').val();
-        var Harga_Grosir = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(6) input#harga_grosir').val();
-        var Potongan = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(7) input#potongan').val();
+        var Potongan = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(6) input#potongan').val();
 
-        var SubTotal = parseInt(Harga_Satuan) * parseInt(Harga_Satuan) * parseInt(Qty) - parseInt(Potongan);
+        var SubTotal = parseInt(Harga_Satuan) * parseInt(Qty) - parseInt(Potongan);
         if (SubTotal > 0) {
             var SubTotalVal = SubTotal;
             SubTotal = to_rupiah(SubTotal);
@@ -640,7 +636,7 @@
             var SubTotalVal = 0;
         }
 
-        var SubTotal2 = parseInt(Harga_Grosir) * parseInt(Harga_Satuan) * parseInt(Qty) - parseInt(Potongan);
+        var SubTotal2 = parseInt(Harga_Satuan) * parseInt(Qty) - parseInt(Potongan);
         if (SubTotal2 > 0) {
             var SubTotalVal2 = SubTotal2;
             SubTotal2 = to_rupiah(SubTotal2);
@@ -648,8 +644,8 @@
             SubTotal2 = '';
             var SubTotalVal2 = 0;
         }
-        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(8) input#subtotal').val(SubTotalVal);
-        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(8) span').html(SubTotal2);
+        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(7) input#subtotal').val(SubTotalVal);
+        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(7) span').html(SubTotal2);
         // console.log(SubTotal);
         // console.log(SubTotal2);
         HitungTotalBayar();
@@ -659,10 +655,9 @@
         var Indexnya = $(this).parent().parent().index();
         var Qty = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(4) input#qty').val();
         var Harga_Satuan = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(5) input#harga_satuan').val();
-        var Harga_Grosir = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(6) input#harga_grosir').val();
-        var Potongan = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(7) input#potongan').val();
+        var Potongan = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(6) input#potongan').val();
 
-        var SubTotal = parseInt(Harga_Grosir) * parseInt(Harga_Satuan) * parseInt(Qty) - parseInt(Potongan);
+        var SubTotal = parseInt(Harga_Satuan) * parseInt(Qty) - parseInt(Potongan);
         if (SubTotal > 0) {
             var SubTotalVal = SubTotal;
             SubTotal = to_rupiah(SubTotal);
@@ -671,7 +666,7 @@
             var SubTotalVal = 0;
         }
 
-        var SubTotal2 = parseInt(Harga_Grosir) * parseInt(Harga_Satuan) * parseInt(Qty) - parseInt(Potongan);
+        var SubTotal2 = parseInt(Harga_Satuan) * parseInt(Qty) - parseInt(Potongan);
         if (SubTotal2 > 0) {
             var SubTotalVal2 = SubTotal2;
             SubTotal2 = to_rupiah(SubTotal2);
@@ -679,39 +674,8 @@
             SubTotal2 = '';
             var SubTotalVal2 = 0;
         }
-        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(8) input#subtotal').val(SubTotalVal);
-        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(8) span').html(SubTotal2);
-        // console.log(SubTotal);
-        // console.log(SubTotal2);
-        HitungTotalBayar();
-    })
-
-    $(document).on('keyup', '#harga_grosir', function() {
-        var Indexnya = $(this).parent().parent().index();
-        var Qty = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(4) input#qty').val();
-        var Harga_Satuan = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(5) input#harga_satuan').val();
-        var Harga_Grosir = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(6) input#harga_grosir').val();
-        var Potongan = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(7) input#potongan').val();
-
-        var SubTotal = parseInt(Harga_Grosir) * parseInt(Harga_Satuan) * parseInt(Qty) - parseInt(Potongan);
-        if (SubTotal > 0) {
-            var SubTotalVal = SubTotal;
-            SubTotal = to_rupiah(SubTotal);
-        } else {
-            SubTotal = '';
-            var SubTotalVal = 0;
-        }
-
-        var SubTotal2 = parseInt(Harga_Grosir) * parseInt(Harga_Satuan) * parseInt(Qty) - parseInt(Potongan);
-        if (SubTotal2 > 0) {
-            var SubTotalVal2 = SubTotal2;
-            SubTotal2 = to_rupiah(SubTotal2);
-        } else {
-            SubTotal2 = '';
-            var SubTotalVal2 = 0;
-        }
-        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(8) input#subtotal').val(SubTotalVal);
-        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(8) span').html(SubTotal2);
+        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(7) input#subtotal').val(SubTotalVal);
+        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(7) span').html(SubTotal2);
         // console.log(SubTotal);
         // console.log(SubTotal2);
         HitungTotalBayar();
@@ -721,10 +685,9 @@
         var Indexnya = $(this).parent().parent().index();
         var Qty = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(4) input#qty').val();
         var Harga_Satuan = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(5) input#harga_satuan').val();
-        var Harga_Grosir = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(6) input#harga_grosir').val();
-        var Potongan = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(7) input#potongan').val();
+        var Potongan = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(6) input#potongan').val();
 
-        var SubTotal = parseInt(Harga_Grosir) * parseInt(Harga_Satuan) * parseInt(Qty) - parseInt(Potongan);
+        var SubTotal = parseInt(Harga_Satuan) * parseInt(Qty) - parseInt(Potongan);
         if (SubTotal > 0) {
             var SubTotalVal = SubTotal;
             SubTotal = to_rupiah(SubTotal);
@@ -733,7 +696,7 @@
             var SubTotalVal = 0;
         }
 
-        var SubTotal2 = parseInt(Harga_Grosir) * parseInt(Harga_Satuan) * parseInt(Qty) - parseInt(Potongan);
+        var SubTotal2 = parseInt(Harga_Satuan) * parseInt(Qty) - parseInt(Potongan);
         if (SubTotal2 > 0) {
             var SubTotalVal2 = SubTotal2;
             SubTotal2 = to_rupiah(SubTotal2);
@@ -741,12 +704,13 @@
             SubTotal2 = '';
             var SubTotalVal2 = 0;
         }
-        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(8) input#subtotal').val(SubTotalVal);
-        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(8) span').html(SubTotal2);
+        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(7) input#subtotal').val(SubTotalVal);
+        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(7) span').html(SubTotal2);
         // console.log(SubTotal);
         // console.log(SubTotal2);
         HitungTotalBayar();
     })
+
 
     function HitungTotalBayar() {
         var Total = 0;
@@ -754,8 +718,8 @@
         var TotalPotongan = 0;
         //var TotalDiskon = 0;
         $('#tabeltransaksi tbody tr').each(function() {
-            if ($(this).find('td:nth-child(8) input#subtotal').val() > 0) {
-                var SubTotal = $(this).find('td:nth-child(8) input#subtotal').val();
+            if ($(this).find('td:nth-child(7) input#subtotal').val() > 0) {
+                var SubTotal = $(this).find('td:nth-child(7) input#subtotal').val();
                 Total = parseInt(Total) + parseInt(SubTotal);
             }
         });
@@ -767,8 +731,8 @@
 
 
         $('#tabeltransaksi tbody tr').each(function() {
-            if ($(this).find('td:nth-child(7) input#potongan').val() > 0) {
-                var SubTotalPotongan = $(this).find('td:nth-child(7) input#potongan').val();
+            if ($(this).find('td:nth-child(6) input#potongan').val() > 0) {
+                var SubTotalPotongan = $(this).find('td:nth-child(6) input#potongan').val();
                 TotalPotongan = parseInt(TotalPotongan) + parseInt(SubTotalPotongan);
             }
         });
@@ -782,7 +746,7 @@
             // console.log(potongan);
             // console.log('Total', Total);
 
-            kembalian = parseInt(kembalian) + parseInt(bayar) - parseInt(Total) + parseInt(TotalPotongan);
+            kembalian = parseInt(kembalian) + parseInt(bayar) - parseInt(Total);
 
             console.log('kembalian', kembalian)
             $('#kembalian').val(to_rupiah(kembalian));
@@ -813,8 +777,8 @@
         // });
         // console.log('Total', Total);
         // console.log('Kembalian', kembalian);
-        $('#totalPotongan').val(to_rupiah(TotalPotongan));
-        $('#totalbelanja').val(to_rupiah(Total));
+        $('#totalPotongan').val(TotalPotongan);
+        $('#totalbelanja').val(Total);
         $('#totalbelanja2').html(to_rupiah(Total));
 
         // $('#TotalOngkir').val(TotalOngkos);
@@ -906,12 +870,12 @@
     }
 </script>
 <script>
-        $(document).ready(function() {
-            $("button").click(function() {
-                //$("#d").trigger("reset");
-                //$("#d").get(0).reset();
-                $("#d")[0].reset()
-            });
+    $(document).ready(function() {
+        $("button").click(function() {
+            //$("#d").trigger("reset");
+            //$("#d").get(0).reset();
+            $("#d")[0].reset()
         });
-    </script>
+    });
+</script>
 <?php $this->load->view('partials/footer'); ?>

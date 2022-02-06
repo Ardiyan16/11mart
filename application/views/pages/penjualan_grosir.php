@@ -61,7 +61,7 @@
                 </div>
                 <div class="col-md-4">
                     <?php
-                    $tgl = date('Y-m-d');
+                    $tgl = date('Y/m/d');
                     ?>
                     <label for="">Tanggal</label>
                     <div class="input-group mb-3">
@@ -743,7 +743,7 @@
         // });
         // console.log('Total', Total);
         // console.log('Kembalian', kembalian);
-        $('#totalPotongan').val(to_rupiah(TotalPotongan));
+        $('#totalPotongan').val(TotalPotongan);
         $('#totalbelanja').val(Total);
         $('#totalbelanja2').html(to_rupiah(Total));
 

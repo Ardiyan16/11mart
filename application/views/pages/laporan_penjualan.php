@@ -10,10 +10,10 @@
         <div class="card-header py-3">
             <form action="<?php echo base_url(); ?>admin/filter_laporanPenjualan" method="get" class="row">
                 <div class="col-md-2">
-                    <input type="date" id="tglawal" name="tanggal_awal" class="form-control datepicker">
+                    <input type="text" id="tglawal" name="tanggal_awal" class="form-control datepicker">
                 </div>
                 <div class="col-md-2">
-                    <input type="date" id="tglakhir" name="tanggal_akhir" class="form-control datepicker">
+                    <input type="text" id="tglakhir" name="tanggal_akhir" class="form-control datepicker">
                 </div>
                 <button type="submit" class="btn btn-success">Filter</button>
                 <a href="<?= base_url('admin/cetak_pdf') ?>" class="btn btn-success" style="margin-left: 5px;">Cetak PDF</a>
