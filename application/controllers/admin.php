@@ -277,4 +277,80 @@ class admin extends CI_Controller
         header('content-type:json/application');
         echo json_encode($data);
     }
+
+    public function cetak_pdf_labarugi()
+    {
+        $bulan = $this->input->post('bulan');
+        $tahun = $this->input->post('tahun');
+        //total penjualan
+        $this->db->select('SUM(penjualan.total_pj) as total');
+        $this->db->where('YEAR(tgl_pj)', $tahun);
+        $this->db->where('MONTH(tgl_pj)', $bulan);
+        $penjualan  = $this->db->get('penjualan')->result();
+
+        //total beban
+        $this->db->select('SUM(beban_keuangan.nominal_keuangan) as total');
+        $this->db->where('YEAR(tgl_input)', $tahun);
+        $this->db->where('MONTH(tgl_input)', $bulan);
+        $totalbeban  = $this->db->get('beban_keuangan')->result();
+
+        //kebutuhan listrik
+        $this->db->select('SUM(beban_keuangan.nominal_keuangan) as total');
+        $this->db->where('YEAR(tgl_input)', $tahun);
+        $this->db->where('MONTH(tgl_input)', $bulan);
+        $this->db->where('id_kebutuhan', '1');
+        $listrik  = $this->db->get('beban_keuangan')->result();
+
+        //kebutuhan kebersihan
+        $this->db->select('SUM(beban_keuangan.nominal_keuangan) as total');
+        $this->db->where('YEAR(tgl_input)', $tahun);
+        $this->db->where('MONTH(tgl_input)', $bulan);
+        $this->db->where('id_kebutuhan', '2');
+        $kebersihan  = $this->db->get('beban_keuangan')->result();
+
+        //kebutuhan gaji
+        $this->db->select('SUM(beban_keuangan.nominal_keuangan) as total');
+        $this->db->where('YEAR(tgl_input)', $tahun);
+        $this->db->where('MONTH(tgl_input)', $bulan);
+        $this->db->where('id_kebutuhan', '3');
+        $gaji  = $this->db->get('beban_keuangan')->result();
+
+        //kebutuhan pajak
+        $this->db->select('SUM(beban_keuangan.nominal_keuangan) as total');
+        $this->db->where('YEAR(tgl_input)', $tahun);
+        $this->db->where('MONTH(tgl_input)', $bulan);
+        $this->db->where('id_kebutuhan', '4');
+        $pajak  = $this->db->get('beban_keuangan')->result();
+
+        //kebutuhan lain lain
+        $this->db->select('SUM(beban_keuangan.nominal_keuangan) as total');
+        $this->db->where('YEAR(tgl_input)', $tahun);
+        $this->db->where('MONTH(tgl_input)', $bulan);
+        $this->db->where('id_kebutuhan', '5');
+        $lainlain = $this->db->get('beban_keuangan')->result();
+
+        //kebutuhan kulaan
+        $this->db->select('SUM(beban_keuangan.nominal_keuangan) as total');
+        $this->db->where('YEAR(tgl_input)', $tahun);
+        $this->db->where('MONTH(tgl_input)', $bulan);
+        $this->db->where('id_kebutuhan', '6');
+        $kulaan  = $this->db->get('beban_keuangan')->result();
+
+        $totalpenjualan = $penjualan[0]->total;
+        $lababersih = $totalpenjualan - $totalbeban[0]->total;
+        if ($this->input->post('submit')) {
+            $param['title'] = "Data Laba Rugi";
+            $param['tanggal'] = " Bulan " . $bulan . " Tahun " . $tahun;
+            $param['total_penjualan'] = $totalpenjualan;
+            $param['gaji'] = $gaji[0]->total;
+            $param['listrik'] = $listrik[0]->total;
+            $param['pajak'] = $pajak[0]->total;
+            $param['kebersihan'] = $kebersihan[0]->total;
+            $param['kulaan'] = $kulaan[0]->total;
+            $param['lainlain'] = $lainlain[0]->total;
+            $param['total_beban'] = $totalbeban[0]->total;
+            $param['laba_bersih'] = $lababersih;
+            $this->load->view("pages/pdf_labarugi", $param);
+        }
+    }
 }

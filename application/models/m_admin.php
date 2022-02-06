@@ -228,14 +228,14 @@ class m_admin extends CI_Model
         $records  = $this->db->get('buku_besar')->result();
         $totalRecordwithFilter = $records[0]->allcount;
  */
-        ## Fetch records
-        $this->db->select('*');
-        if ($bulan != '' || $tahun != '')
-            $this->db->where('YEAR(tanggal)', $tahun);
-        $this->db->where('MONTH(tanggal)', $bulan);
-        $this->db->order_by('buku_besar.id_bukubesar');
-        //        $this->db->limit($rowperpage, $start);
-        $records  = $this->db->get('buku_besar')->result();
+        // ## Fetch records
+        // $this->db->select('*');
+        // if ($bulan != '' || $tahun != '')
+        //     $this->db->where('YEAR(tanggal)', $tahun);
+        // $this->db->where('MONTH(tanggal)', $bulan);
+        // $this->db->order_by('buku_besar.id_bukubesar');
+        // //        $this->db->limit($rowperpage, $start);
+        // $records  = $this->db->get('buku_besar')->result();
 
         //total penjualan
         $this->db->select('SUM(penjualan.total_pj) as total');
@@ -243,128 +243,115 @@ class m_admin extends CI_Model
         $this->db->where('MONTH(tgl_pj)', $bulan);
         $penjualan  = $this->db->get('penjualan')->result();
 
-        //potongan penjualan
-        $this->db->select('SUM(penjualan.potongan) as total');
-        // $this->db->limit($rowperpage, $start);
-        $this->db->where('YEAR(tanggal_penjualan)', $tahun);
-        $this->db->where('MONTH(tanggal_penjualan)', $bulan);
-        $potongan  = $this->db->get('penjualan')->result();
+        //total beban
+        $this->db->select('SUM(beban_keuangan.nominal_keuangan) as total');
+        $this->db->where('YEAR(tgl_input)', $tahun);
+        $this->db->where('MONTH(tgl_input)', $bulan);
+        $totalbeban  = $this->db->get('beban_keuangan')->result();
 
-        $this->db->select('SUM(buku_besar.nominal) as total');
-        // $this->db->limit($rowperpage, $start);
-        $this->db->where('jenis', 'debit');
-        $this->db->where('tanggal <', $tanggal);
-        $totalDebit  = $this->db->get('buku_besar')->result();
+        //kebutuhan listrik
+        $this->db->select('SUM(beban_keuangan.nominal_keuangan) as total');
+        $this->db->where('YEAR(tgl_input)', $tahun);
+        $this->db->where('MONTH(tgl_input)', $bulan);
+        $this->db->where('id_kebutuhan', '1');
+        $listrik  = $this->db->get('beban_keuangan')->result();
 
-        $this->db->select('SUM(kas.nominal) as total');
-        // $this->db->limit($rowperpage, $start);
-        $this->db->where('YEAR(tanggal_kas)', $tahun);
-        $this->db->where('MONTH(tanggal_kas)', $bulan);
-        $kas  = $this->db->get('kas')->result();
+        //kebutuhan kebersihan
+        $this->db->select('SUM(beban_keuangan.nominal_keuangan) as total');
+        $this->db->where('YEAR(tgl_input)', $tahun);
+        $this->db->where('MONTH(tgl_input)', $bulan);
+        $this->db->where('id_kebutuhan', '2');
+        $kebersihan  = $this->db->get('beban_keuangan')->result();
 
-        $this->db->select('SUM(kas.nominal) as total');
-        // $this->db->limit($rowperpage, $start);
-        $this->db->where('YEAR(tanggal_kas)', $tahun);
-        $this->db->where('MONTH(tanggal_kas)', $bulan);
-        $this->db->where('id_beban', '1');
-        $gaji  = $this->db->get('kas')->result();
+        //kebutuhan gaji
+        $this->db->select('SUM(beban_keuangan.nominal_keuangan) as total');
+        $this->db->where('YEAR(tgl_input)', $tahun);
+        $this->db->where('MONTH(tgl_input)', $bulan);
+        $this->db->where('id_kebutuhan', '3');
+        $gaji  = $this->db->get('beban_keuangan')->result();
 
-        $this->db->select('SUM(kas.nominal) as total');
-        // $this->db->limit($rowperpage, $start);
-        $this->db->where('YEAR(tanggal_kas)', $tahun);
-        $this->db->where('MONTH(tanggal_kas)', $bulan);
-        $this->db->where('id_beban', '2');
-        $listrik  = $this->db->get('kas')->result();
+        //kebutuhan pajak
+        $this->db->select('SUM(beban_keuangan.nominal_keuangan) as total');
+        $this->db->where('YEAR(tgl_input)', $tahun);
+        $this->db->where('MONTH(tgl_input)', $bulan);
+        $this->db->where('id_kebutuhan', '4');
+        $pajak  = $this->db->get('beban_keuangan')->result();
 
-        $this->db->select('SUM(kas.nominal) as total');
-        // $this->db->limit($rowperpage, $start);
-        $this->db->where('YEAR(tanggal_kas)', $tahun);
-        $this->db->where('MONTH(tanggal_kas)', $bulan);
-        $this->db->where('id_beban', '3');
-        $pajak  = $this->db->get('kas')->result();
+        //kebutuhan lain lain
+        $this->db->select('SUM(beban_keuangan.nominal_keuangan) as total');
+        $this->db->where('YEAR(tgl_input)', $tahun);
+        $this->db->where('MONTH(tgl_input)', $bulan);
+        $this->db->where('id_kebutuhan', '5');
+        $lainlain = $this->db->get('beban_keuangan')->result();
 
-        $this->db->select('SUM(kas.nominal) as total');
-        // $this->db->limit($rowperpage, $start);
-        $this->db->where('YEAR(tanggal_kas)', $tahun);
-        $this->db->where('MONTH(tanggal_kas)', $bulan);
-        $this->db->where('id_beban', '4');
-        $peralatan  = $this->db->get('kas')->result();
+        //kebutuhan kulaan
+        $this->db->select('SUM(beban_keuangan.nominal_keuangan) as total');
+        $this->db->where('YEAR(tgl_input)', $tahun);
+        $this->db->where('MONTH(tgl_input)', $bulan);
+        $this->db->where('id_kebutuhan', '6');
+        $kulaan  = $this->db->get('beban_keuangan')->result();
 
-        $this->db->select('SUM(kas.nominal) as total');
-        // $this->db->limit($rowperpage, $start);
-        $this->db->where('YEAR(tanggal_kas)', $tahun);
-        $this->db->where('MONTH(tanggal_kas)', $bulan);
-        $this->db->where('id_beban', '5');
-        $perawatan  = $this->db->get('kas')->result();
 
-        $this->db->select('SUM(kas.nominal) as total');
-        // $this->db->limit($rowperpage, $start);
-        $this->db->where('YEAR(tanggal_kas)', $tahun);
-        $this->db->where('MONTH(tanggal_kas)', $bulan);
-        $this->db->where('id_beban', '6');
-        $barcode  = $this->db->get('kas')->result();
+        // $this->db->select('SUM(kas.nominal) as total');
+        // // $this->db->limit($rowperpage, $start);
+        // $this->db->where('YEAR(tanggal_kas)', $tahun);
+        // $this->db->where('MONTH(tanggal_kas)', $bulan);
+        // $this->db->where('id_beban', '7');
+        // $lain  = $this->db->get('kas')->result();
 
-        $this->db->select('SUM(kas.nominal) as total');
-        // $this->db->limit($rowperpage, $start);
-        $this->db->where('YEAR(tanggal_kas)', $tahun);
-        $this->db->where('MONTH(tanggal_kas)', $bulan);
-        $this->db->where('id_beban', '7');
-        $lain  = $this->db->get('kas')->result();
+        // $this->db->select('SUM(kas.nominal) as total');
+        // // $this->db->limit($rowperpage, $start);
+        // $this->db->where('YEAR(tanggal_kas)', $tahun);
+        // $this->db->where('MONTH(tanggal_kas)', $bulan);
+        // $this->db->where('id_beban', '8');
+        // $pendapatanlain  = $this->db->get('kas')->result();
 
-        $this->db->select('SUM(kas.nominal) as total');
-        // $this->db->limit($rowperpage, $start);
-        $this->db->where('YEAR(tanggal_kas)', $tahun);
-        $this->db->where('MONTH(tanggal_kas)', $bulan);
-        $this->db->where('id_beban', '8');
-        $pendapatanlain  = $this->db->get('kas')->result();
-
-        $this->db->select('SUM(kas.nominal) as total');
-        // $this->db->limit($rowperpage, $start);
-        $this->db->where('YEAR(tanggal_kas)', $tahun);
-        $this->db->where('MONTH(tanggal_kas)', $bulan);
-        $this->db->where('id_beban', '9');
-        $bebanlain  = $this->db->get('kas')->result();
+        // $this->db->select('SUM(kas.nominal) as total');
+        // // $this->db->limit($rowperpage, $start);
+        // $this->db->where('YEAR(tanggal_kas)', $tahun);
+        // $this->db->where('MONTH(tanggal_kas)', $bulan);
+        // $this->db->where('id_beban', '9');
+        // $bebanlain  = $this->db->get('kas')->result();
 
         $data = array();
 
-        $saldoAwal = $totalDebit[0]->total - $totalKredit[0]->total;
-        $totalpenjualan = $penjualan[0]->total - $potongan[0]->total;
+        // $saldoAwal = $totalDebit[0]->total - $totalKredit[0]->total;
+        $totalpenjualan = $penjualan[0]->total;
         $returnpenjualan = 0;
         $returnpembelian = 0;
         $potonganpembelian = 0;
-        $pembelianbersih = $pembelian[0]->total - $returnpembelian - $potonganpembelian;
-        $totalpersediaan = $totalDebit[0]->total + $pembelian[0]->total;
-        $persediaanakhir = $totalDebit[0]->total - $totalpenjualan;
-        $nonoperasional = $pendapatanlain[0]->total + $bebanlain[0]->total;
-        $lababersih = $totalpenjualan - $kas[0]->total - $nonoperasional;
-        $hpp = $totalpersediaan - $persediaanakhir;
+        // $pembelianbersih = $pembelian[0]->total - $returnpembelian - $potonganpembelian;
+        // $totalpersediaan = $totalDebit[0]->total + $pembelian[0]->total;
+        // $persediaanakhir = $totalDebit[0]->total - $totalpenjualan;
+        // $nonoperasional = $pendapatanlain[0]->total + $bebanlain[0]->total;
+        $lababersih = $totalpenjualan - $totalbeban[0]->total;
+        // $hpp = $totalpersediaan - $persediaanakhir;
 
         // $gajiKaryawan = 0;
         $data[] = array(
-            "penjualan" => $penjualan[0]->total,
-            "potongan_penjualan" => $potongan[0]->total,
+            // "potongan_penjualan" => $potongan[0]->total,
             "return_penjualan" => $returnpenjualan,
             "total_penjualan" => $totalpenjualan,
-            "pembelian" => $pembelian[0]->total,
+            // "pembelian" => $pembelian[0]->total,
             "potongan_pembelian" => $potonganpembelian,
             "return_pembelian" => $returnpembelian,
-            "pembelian_bersih" => $pembelianbersih,
-            "persediaan_awal" => $totalDebit[0]->total,
-            "total_persediaan" => $totalpersediaan,
-            "persediaan_akhir" =>  $persediaanakhir,
-            "hpp" => $hpp,
-            "laba_rugi" => $totalpenjualan - $hpp,
+            // "pembelian_bersih" => $pembelianbersih,
+            // "persediaan_awal" => $totalDebit[0]->total,
+            // "total_persediaan" => $totalpersediaan,
+            // "persediaan_akhir" =>  $persediaanakhir,
+            // "hpp" => $hpp,
+            // "laba_rugi" => $totalpenjualan - $hpp,
             "gaji" => $gaji[0]->total,
             "listrik" => $listrik[0]->total,
             "pajak" => $pajak[0]->total,
-            "peralatan" => $peralatan[0]->total,
-            "perawatan" => $perawatan[0]->total,
-            "barcode" => $barcode[0]->total,
-            "lain" => $lain[0]->total,
-            "kas" => $kas[0]->total,
-            "pendapatan_lain" => $pendapatanlain[0]->total,
-            "beban_lain" => $bebanlain[0]->total,
-            "total_non" => $nonoperasional,
+            // "peralatan" => $peralatan[0]->total,
+            "kebersihan" => $kebersihan[0]->total,
+            "kulaan" => $kulaan[0]->total,
+            "lainlain" => $lainlain[0]->total,
+            "totalbeban" => $totalbeban[0]->total,
+            // "pendapatan_lain" => $pendapatanlain[0]->total,
+            // "beban_lain" => $bebanlain[0]->total,
+            // "total_non" => $nonoperasional,
             "laba_bersih" => $lababersih
         );
         return $data;
@@ -442,4 +429,5 @@ class m_admin extends CI_Model
 
         return $bc;
     }
+
 }
