@@ -30,7 +30,11 @@
                         foreach ($barang as $brg) { ?>
                             <tr>
                                 <td><?= $no++ ?></td>
-                                <td><?= $brg->kode_brg ?></td>
+                                <td>
+                                    <?= $brg->kode_brg ?>
+                                    <br>
+                                    <a href="<?= base_url('admin/view_barcode/' . $brg->kode_brg) ?>" class="btn btn-success"><i class="fa fa-barcode"></i> barcode</a>
+                                </td>
                                 <td><?= $brg->nama_brg ?></td>
                                 <td><?= $brg->harga_satuan ?></td>
                                 <td><?= $brg->harga_grosir ?></td>

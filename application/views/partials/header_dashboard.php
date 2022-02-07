@@ -110,7 +110,7 @@
                         <h6 class="collapse-header">Laporan:</h6>
                         <a class="collapse-item" href="<?= base_url('admin/laporan_penjualan') ?>">Laporan Penjualan</a>
                         <a class="collapse-item" href="<?= base_url('admin/laba_rugi') ?>">Laba Rugi</a>
-                        <a class="collapse-item" href="forgot-password.html">Laba Rugi Harian</a>
+                        <a class="collapse-item" href="<?= base_url('admin/laba_rugi_tahunan') ?>">Laba Rugi Tahunan</a>
                         <a class="collapse-item" href="<?= base_url('admin/list_pendapatan') ?>">Pendapatan Harian</a>
                         <a class="collapse-item" href="<?= base_url('admin/pembukuan') ?>">Pembukuan</a>
                     </div>

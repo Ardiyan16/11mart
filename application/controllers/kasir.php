@@ -9,6 +9,12 @@ class kasir extends CI_Controller
         parent::__construct();
         $this->load->library('form_validation');
         $this->load->model('m_kasir');
+		if ($this->session->userdata('role') != "kasir") {
+			echo "<script>
+                alert('Anda harus login terlebih dahulu');
+                window.location.href = '" . base_url('auth') . "';
+            </script>"; //Url Logi
+		}
     }
 
     public function index()
