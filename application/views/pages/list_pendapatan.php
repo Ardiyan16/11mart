@@ -18,6 +18,7 @@
                             <th>No</th>
                             <th>Hari</th>
                             <th>Tanggal</th>
+                            <th>Kasir</th>
                             <th>Pendapatan</th>
                             <th>Keterangan</th>
                             <th>Option</th>
@@ -30,6 +31,7 @@
                                 <td><?= $no++ ?></td>
                                 <td><?= $pdp->hari ?></td>
                                 <td><?= $pdp->tanggal ?></td>
+                                <td><?= $pdp->username ?></td>
                                 <td><?= $pdp->pendapatan ?></td>
                                 <td><?= $pdp->keterangan ?></td>
                                 <td>

@@ -24,6 +24,9 @@
                 <label>Harga Grosir</label>
                 <input name="harga_grosir" type="number" value="<?= $edit->harga_grosir ?>" placeholder="Harga Grosir" class="form-control" required>
                 <br>
+                <label>Modal</label>
+                <input name="modal" value="<?= $edit->modal ?>" type="number" placeholder="Modal" class="form-control" required>
+                <br>
                 <input name="stok" type="hidden" value="<?= $edit->stok ?>" placeholder="Stok" class="form-control" required>
                 <label>Foto</label>
                 <input name="foto" type="file" placeholder="" class="form-control">

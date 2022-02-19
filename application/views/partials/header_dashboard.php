@@ -111,7 +111,6 @@
                         <a class="collapse-item" href="<?= base_url('admin/laporan_penjualan') ?>">Laporan Penjualan</a>
                         <a class="collapse-item" href="<?= base_url('admin/laba_rugi') ?>">Laba Rugi</a>
                         <a class="collapse-item" href="<?= base_url('admin/laba_rugi_tahunan') ?>">Laba Rugi Tahunan</a>
-                        <a class="collapse-item" href="<?= base_url('admin/list_pendapatan') ?>">Pendapatan Harian</a>
                         <a class="collapse-item" href="<?= base_url('admin/pembukuan') ?>">Pembukuan</a>
                     </div>
                 </div>
@@ -135,6 +134,20 @@
                         <h6 class="collapse-header">Menu List Penjualan:</h6>
                         <a class="collapse-item" href="<?= base_url('admin/list_penjualan') ?>">History penjualan</a>
                         <a class="collapse-item" href="<?= base_url('admin/list_detailPenjualan') ?>">History Detail Penjualan</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLapKasir" aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Laporan Kasir</span>
+                </a>
+                <div id="collapseLapKasir" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Menu List Penjualan:</h6>
+                        <a class="collapse-item" href="<?= base_url('admin/list_pendapatan') ?>">Pendapatan Harian</a>
+                        <a class="collapse-item" href="<?= base_url('admin/laporan_stok') ?>">Laporan Stok Kasir</a>
                     </div>
                 </div>
             </li>

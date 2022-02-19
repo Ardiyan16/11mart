@@ -50,6 +50,7 @@ class admin extends CI_Controller
     {
         $data['title'] = 'admin-barang';
         $data['barang'] = $this->m_admin->list_brg();
+        $data['barang2'] = $this->m_admin->list_brg();
         $this->load->view('pages/barang', $data);
     }
 
@@ -457,5 +458,35 @@ class admin extends CI_Controller
             $param['laba_bersih'] = $lababersih;
             $this->load->view("pages/pdf_labarugi_tahun", $param);
         }
+    }
+
+    public function laporan_stok()
+    {
+        $data['title'] = 'admin-Laporan Stok';
+        $data['laporan_stok'] = $this->m_admin->list_laporan_stok();
+        $this->load->view('pages/laporan_stok', $data); 
+    }
+
+    public function delete_laporan_stok($id)
+    {
+        $this->db->delete('laporan', ['id_ls' => $id]);
+        $this->session->set_flashdata('delete', true);
+        redirect('admin/laporan_stok');
+    }
+
+    public function filter_laporanStok()
+    {
+        $bulan = $this->input->get('bulan');
+        $tahun = $this->input->get('tahun');
+        $data['title'] = 'admin-Laporan Stok';
+        $data['laporan_stok'] = $this->m_admin->filter_laporanStok($bulan, $tahun);
+        $this->load->view('pages/laporan_stok', $data);
+    }
+
+    public function persentase_laba($id)
+    {
+        $data['title'] = 'admin-Persentase Laba';
+        $data['data'] = $this->db->get_where('barang', ['id_brg' => $id])->row();
+        $this->load->view('pages/perhitungan_persen', $data);
     }
 }

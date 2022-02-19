@@ -20,6 +20,7 @@
                             <th>Nama Barang</th>
                             <th>Harga Satuan</th>
                             <th>Harga Grosir</th>
+                            <th>Modal</th>
                             <th>Stok</th>
                             <th>Foto</th>
                             <th>Option</th>
@@ -38,6 +39,7 @@
                                 <td><?= $brg->nama_brg ?></td>
                                 <td><?= $brg->harga_satuan ?></td>
                                 <td><?= $brg->harga_grosir ?></td>
+                                <td><?= $brg->modal ?></td>
                                 <td><?= $brg->stok ?></td>
                                 <td><img src="<?= base_url('assets/img/produk/' . $brg->foto) ?>" width="64"></td>
                                 <td>
@@ -45,7 +47,8 @@
                                     $dropdown['link'] = array(
                                         "Edit" => base_url('admin/edit_barang/' . $brg->id_brg),
                                         "Delete" => array('confirm', base_url('admin/delete_brg/' . $brg->id_brg)),
-                                        "Tambah Stok" => base_url('admin/add_stok/' . $brg->id_brg)
+                                        "Tambah Stok" => base_url('admin/add_stok/' . $brg->id_brg),
+                                        "Persentase" => base_url('admin/persentase_laba/' . $brg->id_brg)
                                     );
                                     $this->load->view("partials/option", $dropdown);
                                     ?>
@@ -58,6 +61,45 @@
         </div>
     </div>
 </div>
+<!-- <?php foreach ($barang2 as $brg2) : ?>
+    <div class="modal fade" id="persentase<?= $brg2->id_brg ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Persentase Laba <?= $brg2->nama_brg ?></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label for="exampleInputEmail1">Harga Jual Satuan</label>
+                            <input type="text" class="form-control" id="hargajual" value="<?= $brg2->harga_satuan ?>" aria-describedby="emailHelp" readonly>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="exampleInputPassword1">Modal</label>
+                            <input type="text" class="form-control" readonly id="modal" value="<?= $brg2->modal ?>">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="exampleInputPassword1">Laba</label>
+                            <input type="text" class="form-control" readonly id="hasil">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label for="exampleInputPassword1">Persentase</label>
+                            <input type="text" class="form-control" readonly id="persentase">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endforeach; ?> -->
 <script>
     <?php if ($this->session->flashdata('insert')) : ?>
         Swal.fire({

@@ -23,6 +23,9 @@
                 <label>Harga Grosir</label>
                 <input name="harga_grosir" type="number" placeholder="Harga Grosir" class="form-control" required>
                 <br>
+                <label>Modal</label>
+                <input name="modal" type="number" placeholder="Modal" class="form-control" required>
+                <br>
                 <label>Stok</label>
                 <input name="stok" type="number" placeholder="Stok" class="form-control" required>
                 <br>

@@ -5,6 +5,7 @@ class m_kasir extends CI_Model
 {
     private $tb_pendapatan = 'pendapatan_harian';
     private $tb_pembukuan = 'pembukuan';
+    private $tb_laporanstok = 'laporan_stok';
 
     function max_nota()
     {
@@ -99,7 +100,11 @@ class m_kasir extends CI_Model
 
     public function list_pendapatan()
     {
-        return $this->db->get($this->tb_pendapatan)->result();
+        $this->db->select('*');
+        $this->db->from('pendapatan_harian');
+        $this->db->join('auth', 'auth.id = pendapatan_harian.id_auth');
+        $this->db->order_by('pendapatan_harian.id', 'desc');
+        return $this->db->get()->result();
     }
 
     public function save_pendapatan()
@@ -107,6 +112,7 @@ class m_kasir extends CI_Model
         $post = $this->input->post();
         $this->hari = $post['hari'];
         $this->tanggal = $post['tanggal'];
+        $this->id_auth = $post['id_auth'];
         $this->pendapatan = $post['pendapatan'];
         $this->keterangan = $post['keterangan'];
         $this->db->insert($this->tb_pendapatan, $this);
@@ -118,6 +124,7 @@ class m_kasir extends CI_Model
         $this->id = $post['id'];
         $this->hari = $post['hari'];
         $this->tanggal = $post['tanggal'];
+        $this->id_auth = $post['id_auth'];
         $this->pendapatan = $post['pendapatan'];
         $this->keterangan = $post['keterangan'];
         $this->db->update($this->tb_pendapatan, $this, ['id' => $post['id']]);
@@ -162,5 +169,22 @@ class m_kasir extends CI_Model
         $this->tanggal = $post['tgl_input'];
         $this->nominal = $post['nominal_keuangan'];
         $this->db->update($this->tb_pembukuan, $this, ['kode_transaksi' => $post['kode_keuangan']]);
+    }
+
+    public function get_byid($id)
+    {
+        $this->db->where('kode_brg', $id);
+        return $this->db->get('barang')->row();
+    }
+
+    public function save_laporan_stok()
+    {
+        $post = $this->input->post();
+        $this->bulan = $post['bulan'];
+        $this->tahun = $post['tahun'];
+        $this->id_kasir = $post['id_kasir'];
+        $this->kode_brg = $post['kode_brg'];
+        $this->stok_brg = $post['stok_brg'];
+        $this->db->insert($this->tb_laporanstok, $this);
     }
 }

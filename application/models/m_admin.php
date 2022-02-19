@@ -23,6 +23,7 @@ class m_admin extends CI_Model
         $this->nama_brg = $post['nama_brg'];
         $this->harga_satuan = $post['harga_satuan'];
         $this->harga_grosir = $post['harga_grosir'];
+        $this->modal = $post['modal'];
         $this->stok = $post['stok'];
         $this->foto = $this->foto_produk();
         $this->db->insert($this->tb_brg, $this);
@@ -36,6 +37,7 @@ class m_admin extends CI_Model
         $this->nama_brg = $post['nama_brg'];
         $this->harga_satuan = $post['harga_satuan'];
         $this->harga_grosir = $post['harga_grosir'];
+        $this->modal = $post['modal'];
         $this->stok = $post['stok'];
         if (!empty($_FILES["foto"]["name"])) {
             $this->foto = $this->foto_produk();
@@ -428,6 +430,27 @@ class m_admin extends CI_Model
  ");
 
         return $bc;
+    }
+
+    public function list_laporan_stok()
+    {
+        $this->db->select('*');
+        $this->db->from('laporan_stok');
+        $this->db->join('auth', 'auth.id = laporan_stok.id_kasir');
+        $this->db->join('barang', 'barang.kode_brg = laporan_stok.kode_brg');
+        $this->db->order_by('id_ls', 'desc');
+        return $this->db->get()->result();
+    }
+
+    public function filter_laporanStok($bulan, $tahun)
+    {
+        $this->db->select('*');
+        $this->db->from('laporan_stok');
+        $this->db->join('auth', 'auth.id = laporan_stok.id_kasir');
+        $this->db->join('barang', 'barang.kode_brg = laporan_stok.kode_brg');
+        $this->db->where('bulan', $bulan);
+        $this->db->where('tahun', $tahun);
+        return $this->db->get()->result();
     }
 
 }

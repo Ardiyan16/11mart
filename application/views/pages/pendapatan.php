@@ -27,6 +27,7 @@
                 ?>
                 <label>Tanggal</label>
                 <input name="tanggal" type="text" value="<?= $tgl ?>" placeholder="" class="form-control" required>
+                <input name="id_auth" type="hidden" value="<?= $this->session->userdata('id') ?>" placeholder="" class="form-control" required>
                 <br>
                 <label>Pendapatan Hari Ini</label>
                 <input name="pendapatan" type="number" placeholder="Pendapatan" class="form-control" required>

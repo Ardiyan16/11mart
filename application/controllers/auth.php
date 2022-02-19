@@ -40,6 +40,7 @@ class auth extends CI_Controller
             if ($user['is_active'] = 1) {
                 if ($password == $user['password']) {
                     $data = [
+                        'id' => $user['id'],
                         'username' => $user['username'],
                         'role' => $user['role'],
                     ];
@@ -50,6 +51,7 @@ class auth extends CI_Controller
                     if ($user['role'] == 'kasir') {
                         redirect('kasir');
                     } else {
+                        $this->session->unset_userdata('id');
                         $this->session->unset_userdata('username');
                         $this->session->unset_userdata('role');
                         $this->session->set_flashdata('gagal', true);
@@ -73,6 +75,7 @@ class auth extends CI_Controller
     {
         $this->session->unset_userdata('username');
         $this->session->unset_userdata('role');
+        $this->session->unset_userdata('id');
 
         $this->session->set_flashdata('logout', true);
         redirect('auth');

@@ -65,6 +65,11 @@
                     <i class="fas fa-fw fa-wallet"></i>
                     <span>Pendapatan Masuk</span></a>
             </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="<?= base_url('kasir/laporan_stok') ?>">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Laporan Stok</span></a>
+            </li>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 

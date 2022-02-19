@@ -210,4 +210,24 @@ class kasir extends CI_Controller
 		$data['detail'] = $this->m_kasir->nota($kode);
 		$this->load->view('pages/nota', $data);
     }
+
+	public function laporan_stok()
+	{
+		$data['title'] = 'Laporan Stok';
+		$data['barang'] = $this->db->get('barang')->result(); 
+		$this->load->view('pages/add_laporan_stok', $data);
+	}
+
+	public function get_id($id)
+    {
+        $data = $this->m_kasir->get_byid($id);
+        echo json_encode($data);
+    }
+
+	public function save_laporan_stok()
+	{
+		$this->m_kasir->save_laporan_stok();
+		$this->session->set_flashdata('insert', true);
+		redirect('kasir/laporan_stok');
+	}
 }
