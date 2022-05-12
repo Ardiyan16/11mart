@@ -224,7 +224,7 @@
                 var kodene = sprintf("%05s", urut);
 
                 var invoice = 'PJ' + '' + y + '' + m + '' + d + '-' + kodene;
-                console.log('invoice' + invoice);
+                console.log('invoice', invoice);
                 $('#no_nota').val(invoice);
             }
         });
