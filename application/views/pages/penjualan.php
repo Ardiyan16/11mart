@@ -120,7 +120,7 @@
                 <div class="col-md-3">
                     <label for="">Total Bayar</label>
                     <div class="input-group mb-3">
-                        <input type="number" name="total_byr" class="form-control totalKembalian" id='inputBayar' value='0'>
+                        <input type="number" name="total_byr" required class="form-control totalKembalian" id='inputBayar'>
                     </div>
                 </div>
                 <div class="col-md-3">
