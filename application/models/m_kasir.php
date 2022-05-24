@@ -113,7 +113,7 @@ class m_kasir extends CI_Model
         $this->hari = $post['hari'];
         $this->tanggal = $post['tanggal'];
         $this->id_auth = $post['id_auth'];
-        $this->pendapatan = $post['pendapatan'];
+        $this->pendapatan = str_replace(",", "", $post['pendapatan']);
         $this->keterangan = $post['keterangan'];
         $this->db->insert($this->tb_pendapatan, $this);
     }

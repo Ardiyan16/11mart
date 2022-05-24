@@ -31,7 +31,7 @@
                                 <td><?= $no++ ?></td>
                                 <td><?= $k->kode_keuangan ?></td>
                                 <td><?= $k->tgl_input ?></td>
-                                <td><?= $k->nominal_keuangan ?></td>
+                                <td>Rp. <?= number_format($k->nominal_keuangan) ?></td>
                                 <td><?= $k->kebutuhan ?></td>
                                 <td><?= $k->keterangan ?></td>
                                 <td>
@@ -65,7 +65,7 @@
                     <input type="date" name="tgl_input" class="form-control">
                     <br>
                     <label>Nominal Keuangan</label>
-                    <input type="text" name="nominal_keuangan" class="form-control">
+                    <input type="text" id="currency-field" value="" data-type="currency" name="nominal_keuangan" class="form-control">
                     <br>
                     <label>Kebutuhan</label>
                     <select name="id_kebutuhan" class="form-control">
@@ -156,5 +156,90 @@
             // timer: 1500
         })
     <?php endif ?>
+
+    $("input[data-type='currency']").on({
+        keyup: function() {
+            formatCurrency($(this));
+        },
+        blur: function() {
+            formatCurrency($(this), "blur");
+        }
+    });
+
+
+    function formatNumber(n) {
+        // format number 1000000 to 1,234,567
+        return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    }
+
+
+    function formatCurrency(input, blur) {
+        // appends $ to value, validates decimal side
+        // and puts cursor back in right position.
+
+        // get input value
+        var input_val = input.val();
+
+        // don't validate empty input
+        if (input_val === "") {
+            return;
+        }
+
+        // original length
+        var original_len = input_val.length;
+
+        // initial caret position 
+        var caret_pos = input.prop("selectionStart");
+
+        // check for decimal
+        if (input_val.indexOf(".") >= 0) {
+
+            // get position of first decimal
+            // this prevents multiple decimals from
+            // being entered
+            var decimal_pos = input_val.indexOf(".");
+
+            // split number by decimal point
+            // var left_side = input_val.substring(0, decimal_pos);
+            // var right_side = input_val.substring(decimal_pos);
+
+            // add commas to left side of number
+            left_side = formatNumber(left_side);
+
+            // validate right side
+            right_side = formatNumber(right_side);
+
+            // On blur make sure 2 numbers after decimal
+            // if (blur === "blur") {
+            //     right_side += "00";
+            // }
+
+            // Limit decimal to only 2 digits
+            // right_side = right_side.substring(0, 2);
+
+            // join number by .
+            input_val = left_side;
+
+        } else {
+            // no decimal entered
+            // add commas to number
+            // remove all non-digits
+            input_val = formatNumber(input_val);
+            // input_val = "$" + input_val;
+
+            // final formatting
+            // if (blur === "blur") {
+            //     input_val += ".00";
+            // }
+        }
+
+        // send updated string to input
+        input.val(input_val);
+
+        // put caret back in the right position
+        var updated_len = input_val.length;
+        caret_pos = updated_len - original_len + caret_pos;
+        input[0].setSelectionRange(caret_pos, caret_pos);
+    }
 </script>
 <?php $this->load->view('partials/footer.php'); ?>

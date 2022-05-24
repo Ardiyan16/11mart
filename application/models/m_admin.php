@@ -21,9 +21,9 @@ class m_admin extends CI_Model
         $post = $this->input->post();
         $this->kode_brg = $post['kode_brg'];
         $this->nama_brg = $post['nama_brg'];
-        $this->harga_satuan = $post['harga_satuan'];
-        $this->harga_grosir = $post['harga_grosir'];
-        $this->modal = $post['modal'];
+        $this->harga_satuan = str_replace(",", "", $post['harga_satuan']);
+        $this->harga_grosir = str_replace(",", "", $post['harga_grosir']);
+        $this->modal = str_replace(",", "", $post['modal']);;
         $this->stok = $post['stok'];
         $this->foto = $this->foto_produk();
         $this->db->insert($this->tb_brg, $this);
@@ -158,7 +158,7 @@ class m_admin extends CI_Model
         $post = $this->input->post();
         $this->kode_keuangan = $post['kode_keuangan'];
         $this->tgl_input = $post['tgl_input'];
-        $this->nominal_keuangan = $post['nominal_keuangan'];
+        $this->nominal_keuangan = str_replace(",", "", $post['nominal_keuangan']);
         $this->id_kebutuhan = $post['id_kebutuhan'];
         $this->keterangan = $post['keterangan'];
         $this->db->insert($this->tb_keuangan, $this);

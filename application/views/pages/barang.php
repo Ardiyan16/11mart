@@ -37,9 +37,9 @@
                                     <a href="<?= base_url('admin/view_barcode/' . $brg->kode_brg) ?>" class="btn btn-success"><i class="fa fa-barcode"></i> barcode</a>
                                 </td>
                                 <td><?= $brg->nama_brg ?></td>
-                                <td><?= $brg->harga_satuan ?></td>
-                                <td><?= $brg->harga_grosir ?></td>
-                                <td><?= $brg->modal ?></td>
+                                <td>Rp. <?= number_format($brg->harga_satuan) ?></td>
+                                <td>Rp. <?= number_format($brg->harga_grosir) ?></td>
+                                <td>Rp. <?= number_format($brg->modal) ?></td>
                                 <td><?= $brg->stok ?></td>
                                 <td><img src="<?= base_url('assets/img/produk/' . $brg->foto) ?>" width="64"></td>
                                 <td>

@@ -91,7 +91,8 @@
                                 <th scope="col">Kode Barang</th>
                                 <th scope="col">Nama Barang</th>
                                 <th scope="col">Qty</th>
-                                <th scope="col">Harga Satuan</th>
+                                <th scope="col">Pilih</th>
+                                <th scope="col">Harga</th>
                                 <th scope="col">Potongan</th>
                                 <th scope="col">Sub Total</th>
                                 <th scope="col">Hapus</th>
@@ -120,7 +121,7 @@
                 <div class="col-md-3">
                     <label for="">Total Bayar</label>
                     <div class="input-group mb-3">
-                        <input type="number" name="total_byr" required class="form-control totalKembalian" id='inputBayar'>
+                        <input type="text" name="total_byr" required class="form-control totalKembalian" id='inputBayar'>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -301,6 +302,13 @@
         baris += "<td><input type='number' name='qty[]' id='qty' value'0' class='form-control qty" + nomor + "'></td>";
 
         //5
+
+        baris += "<td>"
+        baris += "<input type='checkbox' class='cekboxhargasatuan' id='cekboxhargasatuan'>Harga Satuan <br>"
+        baris += "<input type='checkbox' class='cekboxhargagrosir' id='cekboxhargagrosir'>Harga Grosir <br>"
+        baris += "</td>"
+
+        //5
         baris += "<td><input type='number' name='harga_satuan[]' id='harga_satuan' class='form-control harga_satuan" + nomor + "'></td>";
 
 
@@ -371,14 +379,14 @@
             $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(2)').find('div#hasil_pencarian').html(tidakAda);
             $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(2)').find('div#hasil_pencarian').show('fast');
         }
-        console.log(foundItem);
+        // console.log(foundItem);
         return foundItem.length;
     }
 
     let tempKeyword = false;
     $(document).on('keyup', '#pencarian_kode', function(e) {
         var keyword = $(this).val();
-        console.log(keyword);
+        // console.log(keyword);
         var Indexnya = $(this).parent().parent().index();
         var key = e.which || e.keyCode;
         if (e.which == 40) {
@@ -453,10 +461,20 @@
                             $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(2)').find('div#hasil_pencarian').hide();
                             $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(3) input#nama_brg').val(NamaBarang);
                             // $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(4) input#qty').val(0);
-                            $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(5) input#harga_satuan').val(HargaSatuan);
+                            $(".cekboxhargasatuan").on("click", function() {
+                                if ($('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(5) input#cekboxhargasatuan:checked')) {
+                                    $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(6) input#harga_satuan').val(HargaSatuan);
+                                }
+                            });
+                            $(".cekboxhargagrosir").on("click", function() {
+                                if ($('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(5) input#cekboxhargagrosir:checked')) {
+                                    $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(6) input#harga_satuan').val(HargaGrosir);
+                                }
+                            });
+                            // $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(5) input#harga_satuan').val(HargaSatuan);
                             // $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(4)').html(Berat + ' Gram');
                             // $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(5)').html(Kadar + ' %');
-                            $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(6) input#harga_grosir').val(HargaGrosir);
+                            // $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(6) input#harga_grosir').val(HargaGrosir);
                             // $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(7) input#ongkoskirim').val(Ongkos);
                             // $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(8) input#diskon').val(0);
                             // $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(9) input#kadar_emas').val(Kadar);
@@ -497,10 +515,20 @@
                         $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(2)').find('div#hasil_pencarian').hide();
                         $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(3) input#nama_brg').val(NamaBarang);
                         // $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(4) input#qty').val(0);
-                        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(5) input#harga_satuan').val(HargaSatuan);
+                        $(".cekboxhargasatuan").on("click", function() {
+                            if ($('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(5) input#cekboxhargasatuan:checked')) {
+                                $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(6) input#harga_satuan').val(HargaSatuan);
+                            }
+                        });
+                        $(".cekboxhargagrosir").on("click", function() {
+                            if ($('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(5) input#cekboxhargagrosir:checked')) {
+                                $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(6) input#harga_satuan').val(HargaGrosir);
+                            }
+                        });
+                        // $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(5) input#harga_satuan').val(HargaSatuan);
                         // $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(4)').html(Berat + ' Gram');
                         // $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(5)').html(Kadar + ' %');
-                        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(6) input#harga_grosir').val(HargaGrosir);
+                        // $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(6) input#harga_grosir').val(HargaGrosir);
                         // $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(7) input#ongkoskirim').val(Ongkos);
                         // $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(8) input#diskon').val(0);
                         // $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(9) input#kadar_emas').val(Kadar);
@@ -544,10 +572,21 @@
         $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(2)').find('div#hasil_pencarian').hide();
         $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(3) input#nama_brg').val(NamaBarang);
         // $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(4) input#qty').val(0);
-        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(5) input#harga_satuan').val(HargaSatuan);
+        $(".cekboxhargasatuan").on("click", function() {
+            if ($('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(5) input#cekboxhargasatuan:checked')) {
+                $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(6) input#harga_satuan').val(HargaSatuan);
+            }
+        });
+        $(".cekboxhargagrosir").on("click", function() {
+            if ($('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(5) input#cekboxhargagrosir:checked')) {
+                $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(6) input#harga_satuan').val(HargaGrosir);
+            }
+        });
+        // $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(5) input#harga_satuan').val(HargaSatuan);
+        // $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(6) input#harga_satuan').val(HargaSatuan);
         // $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(4)').html(Berat + ' Gram');
         // $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(5)').html(Kadar + ' %');
-        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(6) input#harga_grosir').val(HargaGrosir);
+        // $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(7) input#harga_grosir').val(HargaGrosir);
         // $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(7) input#ongkoskirim').val(Ongkos);
         // $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(8) input#diskon').val(0);
         // $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(9) input#kadar_emas').val(Kadar);
@@ -571,9 +610,22 @@
     function pencarian_kode(kode_brg, nama_brg, harga_satuan, harga_grosir, nomor) {
         $('.kode_brg' + nomor).val(kode_brg);
         $('.nama_brg' + nomor).val(nama_brg);
-        $('.harga_satuan' + nomor).val(harga_satuan);
-        $('.harga_grosir' + nomor).val(harga_grosir);
+        // var chekbox1 = $('#cekboxhargasatuan:checked' + nomor).val(harga_satuan);
+        // var chekbox2 = $('#hargagrosir:checked' + nomor).val(harga_grosir);
+        $(".cekboxhargasatuan").on("click", function() {
+            if ($('#cekboxhargasatuan:checked')) {
+                $('.harga_satuan' + nomor).val(harga_satuan);
+            }
+        });
+        $(".cekboxhargagrosir").on("click", function() {
+            if ($('#cekboxhargagrosir:checked')) {
+                $('.harga_satuan' + nomor).val(harga_grosir);
+            }
+        });
+        // $('.harga_satuan' + nomor).val(harga_satuan);
+        // $('.harga_grosir' + nomor).val(harga_grosir);
         $('#listbarang').modal('hide');
+        // console.log('checkbox', chekbox1);
     }
 
     $(window).click(function() {
@@ -624,8 +676,8 @@
     $(document).on('keyup', '#qty', function() {
         var Indexnya = $(this).parent().parent().index();
         var Qty = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(4) input#qty').val();
-        var Harga_Satuan = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(5) input#harga_satuan').val();
-        var Potongan = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(6) input#potongan').val();
+        var Harga_Satuan = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(6) input#harga_satuan').val();
+        var Potongan = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(7) input#potongan').val();
 
         var SubTotal = parseInt(Harga_Satuan) * parseInt(Qty) - parseInt(Potongan);
         if (SubTotal > 0) {
@@ -644,8 +696,8 @@
             SubTotal2 = '';
             var SubTotalVal2 = 0;
         }
-        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(7) input#subtotal').val(SubTotalVal);
-        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(7) span').html(SubTotal2);
+        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(8) input#subtotal').val(SubTotalVal);
+        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(8) span').html(SubTotal2);
         // console.log(SubTotal);
         // console.log(SubTotal2);
         HitungTotalBayar();
@@ -654,8 +706,8 @@
     $(document).on('keyup', '#harga_satuan', function() {
         var Indexnya = $(this).parent().parent().index();
         var Qty = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(4) input#qty').val();
-        var Harga_Satuan = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(5) input#harga_satuan').val();
-        var Potongan = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(6) input#potongan').val();
+        var Harga_Satuan = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(6) input#harga_satuan').val();
+        var Potongan = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(7) input#potongan').val();
 
         var SubTotal = parseInt(Harga_Satuan) * parseInt(Qty) - parseInt(Potongan);
         if (SubTotal > 0) {
@@ -674,8 +726,8 @@
             SubTotal2 = '';
             var SubTotalVal2 = 0;
         }
-        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(7) input#subtotal').val(SubTotalVal);
-        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(7) span').html(SubTotal2);
+        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(8) input#subtotal').val(SubTotalVal);
+        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(8) span').html(SubTotal2);
         // console.log(SubTotal);
         // console.log(SubTotal2);
         HitungTotalBayar();
@@ -684,8 +736,8 @@
     $(document).on('keyup', '#potongan', function() {
         var Indexnya = $(this).parent().parent().index();
         var Qty = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(4) input#qty').val();
-        var Harga_Satuan = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(5) input#harga_satuan').val();
-        var Potongan = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(6) input#potongan').val();
+        var Harga_Satuan = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(6) input#harga_satuan').val();
+        var Potongan = $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(7) input#potongan').val();
 
         var SubTotal = parseInt(Harga_Satuan) * parseInt(Qty) - parseInt(Potongan);
         if (SubTotal > 0) {
@@ -704,8 +756,8 @@
             SubTotal2 = '';
             var SubTotalVal2 = 0;
         }
-        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(7) input#subtotal').val(SubTotalVal);
-        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(7) span').html(SubTotal2);
+        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(8) input#subtotal').val(SubTotalVal);
+        $('#tabeltransaksi tbody tr:eq(' + Indexnya + ') td:nth-child(8) span').html(SubTotal2);
         // console.log(SubTotal);
         // console.log(SubTotal2);
         HitungTotalBayar();
@@ -718,8 +770,8 @@
         var TotalPotongan = 0;
         //var TotalDiskon = 0;
         $('#tabeltransaksi tbody tr').each(function() {
-            if ($(this).find('td:nth-child(7) input#subtotal').val() > 0) {
-                var SubTotal = $(this).find('td:nth-child(7) input#subtotal').val();
+            if ($(this).find('td:nth-child(8) input#subtotal').val() > 0) {
+                var SubTotal = $(this).find('td:nth-child(8) input#subtotal').val();
                 Total = parseInt(Total) + parseInt(SubTotal);
             }
         });
@@ -731,8 +783,8 @@
 
 
         $('#tabeltransaksi tbody tr').each(function() {
-            if ($(this).find('td:nth-child(6) input#potongan').val() > 0) {
-                var SubTotalPotongan = $(this).find('td:nth-child(6) input#potongan').val();
+            if ($(this).find('td:nth-child(7) input#potongan').val() > 0) {
+                var SubTotalPotongan = $(this).find('td:nth-child(7) input#potongan').val();
                 TotalPotongan = parseInt(TotalPotongan) + parseInt(SubTotalPotongan);
             }
         });
@@ -867,6 +919,91 @@
         subword = threedigit(cent);
         cent = (subword == "" ? "" : " ") + subword.toUpperCase() + (subword == "" ? "" : " SEN");
         return word + cent;
+    }
+
+    $("input[data-type='currency']").on({
+        keyup: function() {
+            formatCurrency($(this));
+        },
+        blur: function() {
+            formatCurrency($(this), "blur");
+        }
+    });
+
+
+    function formatNumber(n) {
+        // format number 1000000 to 1,234,567
+        return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    }
+
+
+    function formatCurrency(input, blur) {
+        // appends $ to value, validates decimal side
+        // and puts cursor back in right position.
+
+        // get input value
+        var input_val = input.val();
+
+        // don't validate empty input
+        if (input_val === "") {
+            return;
+        }
+
+        // original length
+        var original_len = input_val.length;
+
+        // initial caret position 
+        var caret_pos = input.prop("selectionStart");
+
+        // check for decimal
+        if (input_val.indexOf(".") >= 0) {
+
+            // get position of first decimal
+            // this prevents multiple decimals from
+            // being entered
+            var decimal_pos = input_val.indexOf(".");
+
+            // split number by decimal point
+            // var left_side = input_val.substring(0, decimal_pos);
+            // var right_side = input_val.substring(decimal_pos);
+
+            // add commas to left side of number
+            left_side = formatNumber(left_side);
+
+            // validate right side
+            right_side = formatNumber(right_side);
+
+            // On blur make sure 2 numbers after decimal
+            // if (blur === "blur") {
+            //     right_side += "00";
+            // }
+
+            // Limit decimal to only 2 digits
+            // right_side = right_side.substring(0, 2);
+
+            // join number by .
+            input_val = left_side;
+
+        } else {
+            // no decimal entered
+            // add commas to number
+            // remove all non-digits
+            input_val = formatNumber(input_val);
+            // input_val = "$" + input_val;
+
+            // final formatting
+            // if (blur === "blur") {
+            //     input_val += ".00";
+            // }
+        }
+
+        // send updated string to input
+        input.val(input_val);
+
+        // put caret back in the right position
+        var updated_len = input_val.length;
+        caret_pos = updated_len - original_len + caret_pos;
+        input[0].setSelectionRange(caret_pos, caret_pos);
     }
 </script>
 <script>

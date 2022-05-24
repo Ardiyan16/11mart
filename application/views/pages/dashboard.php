@@ -20,7 +20,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Pendapatan Hari Ini</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">Rp. <?= $pendapatan_harian ?></div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">Rp. <?= number_format($pendapatan_harian) ?></div>
                         </div>
                         <!-- <div class="col-auto">
                             <i class="fas  fa-2x text-gray-300"></i>
@@ -38,7 +38,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 Pendapatan Total</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">Rp. <?= $pendapatan_total ?></div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">Rp. <?= number_format($pendapatan_total) ?></div>
                         </div>
                         <!-- <div class="col-auto">
                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>

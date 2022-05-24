@@ -32,9 +32,9 @@
                                 <td><?= $det->kode_pj ?></td>
                                 <td><?= $det->nama_brg ?></td>
                                 <td><?= $det->qty ?></td>
-                                <td><?= $det->harga ?></td>
-                                <td><?= $det->subtotal ?></td>
-                                <td><?= $det->potongan ?></td>
+                                <td>Rp. <?= number_format($det->harga) ?></td>
+                                <td>Rp. <?= number_format($det->subtotal) ?></td>
+                                <td>Rp. <?= number_format($det->potongan) ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>

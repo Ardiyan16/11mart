@@ -32,7 +32,7 @@
                                 <td><?= $pdp->hari ?></td>
                                 <td><?= $pdp->tanggal ?></td>
                                 <td><?= $pdp->username ?></td>
-                                <td><?= $pdp->pendapatan ?></td>
+                                <td>Rp. <?= number_format($pdp->pendapatan) ?></td>
                                 <td><?= $pdp->keterangan ?></td>
                                 <td>
                                     <a href="#edit<?= $pdp->id ?>" data-toggle="modal" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>

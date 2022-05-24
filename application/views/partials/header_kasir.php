@@ -51,14 +51,14 @@
             <li class="nav-item active">
                 <a class="nav-link" href="<?= base_url('kasir') ?>">
                     <i class="fas fa-fw fa-shopping-cart"></i>
-                    <span>Penjualan Satuan</span></a>
+                    <span>Penjualan</span></a>
             </li>
 
-            <li class="nav-item active">
+            <!-- <li class="nav-item active">
                 <a class="nav-link" href="<?= base_url('kasir/penjualan_grosir') ?>">
                     <i class="fas fa-fw fa-shopping-cart"></i>
                     <span>Penjualan Grosir</span></a>
-            </li>
+            </li> -->
 
             <li class="nav-item active">
                 <a class="nav-link" href="<?= base_url('kasir/pendapatan_masuk') ?>">

@@ -43,9 +43,9 @@
                                 <td><?= $pj->kode_pj ?></td>
                                 <td><?= $pj->tgl_pj ?></td>
                                 <td><?= $pj->total_qty ?></td>
-                                <td><?= $pj->total_pj ?></td>
-                                <td><?= $pj->total_byr ?></td>
-                                <td><?= $pj->total_potongan ?></td>
+                                <td>Rp. <?= number_format($pj->total_pj) ?></td>
+                                <td>Rp. <?= number_format($pj->total_byr) ?></td>
+                                <td>Rp. <?= number_format($pj->total_potongan) ?></td>
                                 <td><?= $pj->kembalian ?></td>
                                 <td><?= $pj->kasir ?></td>
                             </tr>
