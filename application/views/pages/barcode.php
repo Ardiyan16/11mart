@@ -26,9 +26,9 @@
     <script src="<?= base_url() ?>assets/js/sweetalert2-all.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <style>
-        body {
-            text-align: center;
-        }
+        /* body {
+            text-align:;
+        } */
 
         p {
             font-size: 12px;
@@ -45,9 +45,32 @@
 </head>
 <body>
     <img src="<?= base_url('admin/barcode/' . $brg['kode_brg']) ?>">
+    <img src="<?= base_url('admin/barcode/' . $brg['kode_brg']) ?>">
+    <img src="<?= base_url('admin/barcode/' . $brg['kode_brg']) ?>">
+    <img src="<?= base_url('admin/barcode/' . $brg['kode_brg']) ?>">
+    <img src="<?= base_url('admin/barcode/' . $brg['kode_brg']) ?>">
+    <img src="<?= base_url('admin/barcode/' . $brg['kode_brg']) ?>">
+    <img src="<?= base_url('admin/barcode/' . $brg['kode_brg']) ?>">
+    <img src="<?= base_url('admin/barcode/' . $brg['kode_brg']) ?>">
+    <img src="<?= base_url('admin/barcode/' . $brg['kode_brg']) ?>">
+    <img src="<?= base_url('admin/barcode/' . $brg['kode_brg']) ?>">
+    <img src="<?= base_url('admin/barcode/' . $brg['kode_brg']) ?>">
+    <img src="<?= base_url('admin/barcode/' . $brg['kode_brg']) ?>">
+    <img src="<?= base_url('admin/barcode/' . $brg['kode_brg']) ?>">
+    <img src="<?= base_url('admin/barcode/' . $brg['kode_brg']) ?>">
+    <img src="<?= base_url('admin/barcode/' . $brg['kode_brg']) ?>">
+    <img src="<?= base_url('admin/barcode/' . $brg['kode_brg']) ?>">
+    <img src="<?= base_url('admin/barcode/' . $brg['kode_brg']) ?>">
+    <img src="<?= base_url('admin/barcode/' . $brg['kode_brg']) ?>">
+    <img src="<?= base_url('admin/barcode/' . $brg['kode_brg']) ?>">
+    <img src="<?= base_url('admin/barcode/' . $brg['kode_brg']) ?>">
+    <img src="<?= base_url('admin/barcode/' . $brg['kode_brg']) ?>">
+    <img src="<?= base_url('admin/barcode/' . $brg['kode_brg']) ?>">
+    <img src="<?= base_url('admin/barcode/' . $brg['kode_brg']) ?>">
+    <img src="<?= base_url('admin/barcode/' . $brg['kode_brg']) ?>">
+    <img src="<?= base_url('admin/barcode/' . $brg['kode_brg']) ?>">
     <br>
-    <br>
-    <p><?= $brg['nama_brg'] ?> Rp.<?= $brg['harga_satuan'] ?></p>
+    <!-- <p><?= $brg['nama_brg'] ?> Rp.<?= $brg['harga_satuan'] ?></p> -->
     <button id="btnPrint" class="hidden-print">Cetak</button>
 </body>
 <script>

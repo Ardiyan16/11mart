@@ -129,6 +129,7 @@ class admin extends CI_Controller
     {
         $data['title'] = 'List Pendapatan';
         $data['pendapatan'] = $this->m_kasir->list_pendapatan();
+        $data['pendapatan_harian'] = $this->m_admin->pendapatan_perhari();
         $data['edit'] = $this->m_kasir->list_pendapatan();
         $this->load->view('pages/list_pendapatan', $data);
     }

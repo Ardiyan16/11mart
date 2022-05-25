@@ -363,7 +363,7 @@ class m_admin extends CI_Model
     {
         $this->db->select('*');
         $this->db->from('barang');
-        $this->db->where('stok <', 10);
+        $this->db->where('stok <', 5);
         return $this->db->get()->result();
     }
 
@@ -371,7 +371,7 @@ class m_admin extends CI_Model
     {
         $this->db->select('COUNT(id_brg) as jml');
         $this->db->from('barang');
-        $this->db->where('stok <', 10);
+        $this->db->where('stok <', 5);
         return $this->db->get()->row()->jml;
     }
 

@@ -9,6 +9,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <p>Data Pendapatan</p>
+            <p>Pendapatan hari ini dari kasir : Rp. <?= number_format($pendapatan_harian) ?></p>
         </div>
         <div class="card-body">
             <div class="table-responsive">
