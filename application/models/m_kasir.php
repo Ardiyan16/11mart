@@ -107,6 +107,16 @@ class m_kasir extends CI_Model
         return $this->db->get()->result();
     }
 
+    public function list_pendapatan2($tanggal)
+    {
+        $this->db->select('*');
+        $this->db->from('pendapatan_harian');
+        $this->db->join('auth', 'auth.id = pendapatan_harian.id_auth');
+        $this->db->where('tanggal', $tanggal);
+        // $this->db->order_by('pendapatan_harian.id', 'desc');
+        return $this->db->get()->result();
+    }
+
     public function save_pendapatan()
     {
         $post = $this->input->post();

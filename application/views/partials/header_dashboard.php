@@ -223,7 +223,7 @@
                                             </div>
                                         </div>
                                         <div>
-                                            <span class="font-weight-bold">Stok barang <?= $notif->nama_brg ?> kurang dari 10</span>
+                                            <span class="font-weight-bold">Stok barang <?= $notif->nama_brg ?> kurang dari 5</span>
                                         </div>
                                     </a>
                                 <?php } ?>

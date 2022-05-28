@@ -90,10 +90,6 @@ class kasir extends CI_Controller
 
     public function proses_penjualanGrosir()
 	{
-		// $total = 0;
-		// foreach ($_POST['subtotal'] as $value) {
-		// 	$total += $value;
-		// }
 		$total_qty = 0;
 		foreach ($_POST['qty'] as $value) {
 			$total_qty += $value;
@@ -148,10 +144,6 @@ class kasir extends CI_Controller
 
     public function proses_penjualanSatuan()
 	{
-		// $total = 0;
-		// foreach ($_POST['subtotal'] as $value) {
-		// 	$total += $value;
-		// }
 		$total_qty = 0;
 		foreach ($_POST['qty'] as $value) {
 			$total_qty += $value;

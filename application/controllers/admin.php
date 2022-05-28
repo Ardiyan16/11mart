@@ -134,6 +134,16 @@ class admin extends CI_Controller
         $this->load->view('pages/list_pendapatan', $data);
     }
 
+    public function filter_pendapatan()
+    {
+        $data['title'] = 'List Pendapatan';
+        $tanggal = $this->input->get('tanggal');
+        $data['pendapatan'] = $this->m_kasir->list_pendapatan2($tanggal);
+        $data['pendapatan_harian'] = $this->m_admin->pendapatan_perhari();
+        $data['edit'] = $this->m_kasir->list_pendapatan();
+        $this->load->view('pages/list_pendapatan', $data);
+    }
+
     public function update_pendapatan()
     {
         $this->m_kasir->update_pendapatan();

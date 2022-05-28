@@ -10,6 +10,14 @@
         <div class="card-header py-3">
             <p>Data Pendapatan</p>
             <p>Pendapatan hari ini dari kasir : Rp. <?= number_format($pendapatan_harian) ?></p>
+            <form action="<?php echo base_url(); ?>admin/filter_pendapatan" method="get" class="row">
+                <?php $tgl = date('d-m-Y') ?>
+                <div class="col-md-2">
+                    <input type="text" name="tanggal" value="<?= $tgl ?>" class="form-control" readonly>
+                </div>
+                <button type="submit" class="btn btn-success">Filter</button>
+                <a href="<?= base_url('admin/list_pendapatan') ?>" class="btn btn-success" style="margin-left: 5px;">Refresh</a>
+            </form>
         </div>
         <div class="card-body">
             <div class="table-responsive">
