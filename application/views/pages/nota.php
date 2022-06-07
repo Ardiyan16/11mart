@@ -71,6 +71,11 @@
         .hidden-print * {
             display: none !important;
         }
+
+        .hidden-back,
+        .hidden-back * {
+            display: none !important;
+        }
     }
 </style>
 
@@ -132,6 +137,7 @@
         </p>
     </div>
     <button id="btnPrint" class="hidden-print">Cetak</button>
+    <a href="<?= base_url('kasir') ?>" class="hidden-back">Kembali</a>
 </body>
 <script>
     const $btnPrint = document.querySelector("#btnPrint");
